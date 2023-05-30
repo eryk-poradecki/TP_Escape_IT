@@ -1,5 +1,10 @@
 {% extends 'Escape_IT_Gamemaster/base.html' %}
 
 {% block content %}
-    <h1>test</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <textarea name="text_to_convert"></textarea>
+        <br>
+        <button type="submit">Convert to speech</button>
+    </form>
 {% endblock content %}
