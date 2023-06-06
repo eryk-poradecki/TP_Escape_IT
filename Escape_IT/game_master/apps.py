@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class EscapeItGamemasterConfig(AppConfig):
+class GameMasterConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Escape_IT_Gamemaster'
+    name = 'game_master'
