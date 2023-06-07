@@ -1,0 +1,26 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        {% if title %}
+            <title>{{ title }}</title>
+        {% else %}
+            <title>Escape IT</title>
+        {% endif %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+
+    </head>
+
+    <body>
+        {% include './navbar.html' %}
+
+        
+        <p>Settings page is waiting for implementation</p>
+
+    </body>
+
+
+
+</html>

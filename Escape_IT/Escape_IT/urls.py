@@ -22,4 +22,6 @@ from game_master import views as game_master_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', game_master_views.home),
+    path('notifications/', game_master_views.notifications, name='notifications'),
+    path('settings/', game_master_views.settings, name='settings'),
 ]
