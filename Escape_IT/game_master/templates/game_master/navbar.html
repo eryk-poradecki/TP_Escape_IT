@@ -2,6 +2,7 @@
 
 <nav>
     <link rel="stylesheet" href="{% static 'css/navbar-style.css' %}"/>
+
     <ul class="vertical-navbar">
         {% include './nav-item.html' with url="/" label="Home" active=True %}
         {% include './nav-item.html' with url="/notifications" label="Notifications" %}

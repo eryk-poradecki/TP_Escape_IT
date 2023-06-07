@@ -10,6 +10,7 @@
     /*
         Wysrodkowac to w poziome bo mi nie dziala gowno
     */
+    padding-top: 100px; /* W chuj prowizorka trzeba przerobic zeby jakos sie automatycznie sklejalo z tym tytulem */
 }
 
 .vertical-navbar li {
