@@ -2,10 +2,9 @@
 .top-bar {
     height: 100px;
     width: 100%;
-    display: flex;
-    flex-direction: row;
     background-color: #1B4F3F;
     align-items: center;
+    justify-content: center;
     color: white;
     overflow: hidden;
     position: fixed;
@@ -13,7 +12,15 @@
 }
 
 .logo {
-    margin-right: 200px;
+    position: absolute;
+    left: 50px;
     height: 50px;
     width: 50px;
+    top: 25%;
+}
+
+.page-title {
+    position: relative;
+    left: 25%;
+    font-size: 40px;
 }
