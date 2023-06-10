@@ -21,7 +21,7 @@ def rooms(request):
         'rooms': Room.objects.all()
     }
 
-    return render(request, 'game_master/rooms.html', context)
+    return render(request, 'game_master/home.html', context)
 
 
 def room_detail(request, room_id):

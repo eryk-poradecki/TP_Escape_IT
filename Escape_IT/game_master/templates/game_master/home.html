@@ -1,9 +1,25 @@
 {% extends 'game_master/base.html' %}
-{% load static %}
 
 {% block content %}
     <div class="active-games">
         <p>number of active games : 4</p>
         <p>games that require your attention : 0</p>
     </div>
+
+    <div class="rooms-layout">
+        {% for room in rooms %}
+        <div class="room">
+            <img src="../../static/img/placeholder.jpg" class="photo">
+            <div class="room-text">
+                <p class="room-number">{{room.id}}</p>
+                <p>starting time : 12:00</p>
+                <p>progress : 40%</p>
+                <div class="room-panel-button">
+                    <p>room panel</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
 {% endblock content %}

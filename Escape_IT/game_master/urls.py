@@ -2,7 +2,7 @@ from django.urls import path
 from . import views as game_master_views
 
 urlpatterns = [
-    path('', game_master_views.home),
+    path('', game_master_views.rooms),
     path('notifications/', game_master_views.notifications, name='notifications'),
     path('settings/', game_master_views.settings, name='settings'),
     path('rooms/', game_master_views.rooms, name='rooms'),
