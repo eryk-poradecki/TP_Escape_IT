@@ -1,0 +1,10 @@
+{% extends 'game_master/base.html' %}
+
+{% block content %}
+
+    {% for room in rooms %}
+        <h1>{{ room.room_id }}</h1>
+        <p>{{ room.room_description }}</p>
+    {% endfor %}
+
+{% endblock content %}
