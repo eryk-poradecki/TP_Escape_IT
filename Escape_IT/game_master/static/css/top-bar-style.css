@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@100;200;300;400;500;600;700;800&display=swap');
 
 .top-bar {
     height: 100px;
@@ -8,7 +9,6 @@
     color: white;
     overflow: hidden;
     position: fixed;
-    top: 0;
 }
 
 .logo {
@@ -17,10 +17,15 @@
     height: 50px;
     width: 50px;
     top: 25%;
+    margin-left: 30px;
 }
 
 .page-title {
     position: relative;
-    left: 25%;
-    font-size: 40px;
+    left: 20%;
+    font-size: 60px;
+    font-family: 'Anek Latin', sans-serif;
+    display: block;
+    align-content: center;
+    margin-top: 1%;
 }

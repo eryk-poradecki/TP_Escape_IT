@@ -3,13 +3,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@100;200;300;400;500;600;700;800&display=swap');
+    </style>
+
     <head>
         {% if title %}
             <title>{{ title }}</title>
         {% else %}
             <title>Escape IT</title>
         {% endif %}
-        <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+        <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"/> -->
+        <link rel="stylesheet" href="../../static/css/style.css"/>
     </head>
 
     <body>
@@ -17,6 +22,65 @@
         
         {% include './top-bar.html' %}
         
+        <div class="main-content">
+            
+            <div class="active-games">
+                <p>number of active games : 4</p>
+                <p>games that require your attention : 0</p>
+           </div>
+    
+            <div class="rooms-layout">
+                <div class="room">
+                    <img src="../../static/img/placeholder.jpg" class="photo">
+                    <div class="room-text">
+                        <p class="room-number">room 1</p>
+                        <p>starting time : 12:00</p>
+                        <p>progress : 40%</p>
+                        <div class="room-panel-button">
+                            <p>room panel</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="room">
+                    <img src="../../static/img/placeholder.jpg" class="photo">
+                    <div class="room-text">
+                        <p class="room-number">room 2</p>
+                        <p>starting time : 12:00</p>
+                        <p>progress : 40%</p>
+                        <div class="room-panel-button">
+                            <p>room panel</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="room">
+                    <img src="../../static/img/placeholder.jpg" class="photo">
+                    <div class="room-text">
+                        <p class="room-number">room 3</p>
+                        <p>starting time : 12:00</p>
+                        <p>progress : 40%</p>
+                        <div class="room-panel-button">
+                            <p>room panel</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="room">
+                    <img src="../../static/img/placeholder.jpg" class="photo">
+                    <div class="room-text">
+                        <p class="room-number">room 4</p>
+                        <p>starting time : 12:00</p>
+                        <p>progress : 40%</p>
+                        <div class="room-panel-button">
+                            <p>room panel</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
 
     </body>
 
