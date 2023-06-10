@@ -18,38 +18,13 @@
     </head>
 
     <body>
-        {% include './navbar.html' %}
-        
-        {% include './top-bar.html' %}
+        {% include 'game_master/navbar.html' %}
+
+        {% include 'game_master/top-bar.html' %}
         
         <div class="main-content">
-            
-            <div class="active-games">
-                <p>number of active games : 4</p>
-                <p>games that require your attention : 0</p>
-           </div>
-    
-            <div class="rooms-layout">
-                {% for room in rooms_data %}
-                    <div class="room">
-                        <img src="../../static/img/placeholder.jpg" class="photo">
-                        <div class="room-text">
-                            <p class="room-number">{{ room.room_number }}</p>
-                            <p>starting time : dupa</p>
-                            <p>progress : 40%</p>
-                            <div class="room-panel-button">
-                                <p>room panel</p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div> 
+            {% block content %}
+            {% endblock content %}
         </div>
-
-       
-
     </body>
-
-
-
 </html>
