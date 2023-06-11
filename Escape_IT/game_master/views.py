@@ -5,7 +5,7 @@ from .models import Room, Game
 
 
 def home(request):
-    return render(request, 'game_master/home.html')
+    return render(request, 'game_master/home.html', get_rooms())
 
 
 def notifications(request):
@@ -16,8 +16,13 @@ def settings(request):
     return render(request, 'game_master/settings.html')
 
 
-def room_panel(request):
-    return render(request, 'game_master/room-panel-view.html')
+def room_panel(request, room_id):
+    room = get_object_or_404(Room, id=room_id)
+    context = {
+        'room': room
+    }
+    return render(request, 'game_master/room-panel-view.html', context)
+
 
 def rooms(request):
     context = {
@@ -25,13 +30,11 @@ def rooms(request):
     }
 
     return render(request, 'game_master/home.html', context)
+    
 
-
-def room_detail(request, room_id):
-    room = get_object_or_404(Room, id=room_id)
-
+def get_rooms():
     context = {
-        'room': room
+        'rooms': Room.objects.all()
     }
+    return context
 
-    return render(request, 'game_master/room-detail.html', context)
