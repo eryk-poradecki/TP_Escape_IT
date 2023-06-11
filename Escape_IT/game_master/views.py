@@ -16,6 +16,9 @@ def settings(request):
     return render(request, 'game_master/settings.html')
 
 
+def room_panel(request):
+    return render(request, 'game_master/room-panel-view.html')
+
 def rooms(request):
     context = {
         'rooms': Room.objects.all()

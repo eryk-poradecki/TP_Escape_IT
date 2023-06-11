@@ -1,0 +1,43 @@
+{% extends 'game_master/base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="../../static/css/room-panel-style.css"/>
+</head>
+
+<body>
+    <div class="room-panel-view">
+
+        <div class="header">
+            <a href="/">
+                <img src="{% static 'img/arrow.svg' %}" alt="Return" class="arrow"/>
+            </a>
+            <!-- tu nie mam pojecia jak to zrobic zeby dynamicznie podmienialo nazwy pokojów, probowałam z tym
+            room.room_name ale nie działało mi XD -->
+            <h1>room 1 management panel</h1>
+        </div>
+
+        <div class="room-information">
+
+            <div class="information-text">
+                <!-- tutaj tez trzeba dodać dynamiczne branie danych -->
+                <p>Room description</p>
+                <p class="details">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Maecenas eleifend magna elementum ligula pharetra tempus. 
+                    Donec non ligula nec felis efficitur blandit in id ligula.  </p>
+                <p>Starting time </p>
+                <p class="details"> 12:00</p>
+                <p>Group progress </p>
+                <p class="details">40%</p>
+            </div>
+
+            <img src="../../static/img/placeholder.jpg" class="photo-panel">
+            
+        </div>
+        
+    </div>
+    
+</body>
+   
+{% endblock content %}

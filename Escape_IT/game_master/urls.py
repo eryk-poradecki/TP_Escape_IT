@@ -6,5 +6,6 @@ urlpatterns = [
     path('notifications/', game_master_views.notifications, name='notifications'),
     path('settings/', game_master_views.settings, name='settings'),
     path('rooms/', game_master_views.rooms, name='rooms'),
+    path('room-panel/', game_master_views.room_panel, name='room-panel'),
     path('rooms/<int:room_id>/', game_master_views.room_detail, name='room-detail')
 ]
