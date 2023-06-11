@@ -24,13 +24,38 @@
                 <p class="details">{{ room.room_description }}</p>
                 {% comment %} Fill with game data {% endcomment %}
                 <p>Starting time </p>
-                <p class="details"> 12:00</p>
+                <p class="details">
+                    {% if current_game %}
+                        {{ current_game.start_date_time }}
+                    {% else %}
+                        Not playing
+                    {% endif %}
+                </p>
                 <p>Group progress </p>
-                <p class="details">40%</p>
+                <p class="details">
+                    {% if current_game %}
+                        {{ current_game.progress }} %
+                    {% else %}
+                        Not playing
+                    {% endif %}
+                </p>
             </div>
 
             <img src="../../static/img/placeholder.jpg" class="photo-panel">
             
+        </div>
+
+        <div class="games-list">
+            {% for game in games %}
+                <div>
+                    <h1>{{ game.id }}</h1>
+                    <p>Start Time: {{ game.start_date_time }}</p>
+                    <p>End Time: {{ game.end_date_time }}</p>
+                    <p>Game Progress: {{ game.progress }}</p>
+                </div>
+
+            {% endfor %}
+
         </div>
         
     </div>
