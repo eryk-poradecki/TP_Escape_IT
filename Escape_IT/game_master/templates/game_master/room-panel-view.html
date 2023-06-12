@@ -25,16 +25,16 @@
                 {% comment %} Fill with game data {% endcomment %}
                 <p>Starting time </p>
                 <p class="details">
-                    {% if current_game %}
-                        {{ current_game.start_date_time }}
+                    {% if current_game.0 %}
+                        {{ current_game.0.start_date_time }}
                     {% else %}
                         Not playing
                     {% endif %}
                 </p>
                 <p>Group progress </p>
                 <p class="details">
-                    {% if current_game %}
-                        {{ current_game.progress }} %
+                    {% if current_game.0 %}
+                        {{ current_game.0.progress }} %
                     {% else %}
                         Not playing
                     {% endif %}
