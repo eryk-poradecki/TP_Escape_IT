@@ -66,6 +66,7 @@ body {
   height: 50px;
   width: 150px;
   text-transform: uppercase;
+  text-decoration: none;
   color: white;
   font-weight: 900;
   font-size: 20px;

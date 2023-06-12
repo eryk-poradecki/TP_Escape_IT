@@ -6,15 +6,25 @@ from datetime import datetime
 
 
 def home(request):
-    return render(request, 'game_master/home.html', get_rooms())
+    context = {
+        'rooms': Room.objects.all(),
+        'active_page': 'home'
+    }
+    return render(request, 'game_master/home.html', context)
 
 
 def notifications(request):
-    return render(request, 'game_master/notifications.html')
+    context = {
+        'active_page': 'notifications'
+    }
+    return render(request, 'game_master/notifications.html', context)
 
 
 def settings(request):
-    return render(request, 'game_master/settings.html')
+    context = {
+        'active_page': 'settings'
+    }
+    return render(request, 'game_master/settings.html', context)
 
 
 def room_panel(request, room_id):
@@ -38,9 +48,4 @@ def rooms(request):
     return render(request, 'game_master/home.html', context)
     
 
-def get_rooms():
-    context = {
-        'rooms': Room.objects.all()
-    }
-    return context
 
