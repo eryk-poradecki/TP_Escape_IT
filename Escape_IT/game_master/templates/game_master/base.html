@@ -3,17 +3,28 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@100;200;300;400;500;600;700;800&display=swap');
+    </style>
+
     <head>
         {% if title %}
             <title>{{ title }}</title>
         {% else %}
             <title>Escape IT</title>
         {% endif %}
-        <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+        <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"/> -->
+        <link rel="stylesheet" href="../../static/css/style.css"/>
     </head>
 
-    
-    {% block content %}{% endblock %}
+    <body>
+        {% include 'game_master/navbar.html' with active_page=active_page %}
 
-
+        {% include 'game_master/top-bar.html' %}
+        
+        <div class="main-content">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </body>
 </html>

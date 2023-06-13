@@ -1,0 +1,64 @@
+.room-panel{
+    text-decoration: none;
+    color: white;
+}
+
+
+.room-panel-view{
+    margin-top: 10%;
+    width: 90%;
+}
+
+.header{
+    min-width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2f2f2f;
+    border-radius: 15px;
+    color: white;
+}
+
+.header h1{
+    padding: 30px;
+    font-size: 50px;
+    text-transform: uppercase;
+    text-indent: -20%;
+}
+
+.arrow{
+    width: 20%;
+    margin-left: 5%;
+}
+
+.room-information{
+    margin-left: 5%;
+    margin-top: 2%;
+    display: grid;
+    grid-template-columns: 55% 40%;
+    grid-template-rows: 1fr;
+    grid-column-gap: 5%;
+}
+
+.information-text{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    row-gap: 2%;
+    padding: 0%;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.photo-panel{
+    border-radius: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.details{
+    display: inline;
+    font-weight: 500;
+}

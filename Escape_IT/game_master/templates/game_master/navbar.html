@@ -1,0 +1,23 @@
+{% load static %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@100;200;300;400;500;600;700;800&display=swap');
+</style>
+
+<nav>
+    <link rel="stylesheet" href="{% static 'css/navbar-style.css' %}"/>
+
+    <ul class="vertical-navbar">
+        <li>
+            <a href="/" class="nav-item {% if active_page == 'home' %}active{% endif %}">Game Management</a>
+        </li>
+        <li>
+            <a href="/notifications" class="nav-item {% if active_page == 'notifications' %}active{% endif %}">Notifications</a>
+        </li>
+        <li>
+            <a href="/settings" class="nav-item {% if active_page == 'settings' %}active{% endif %}">Settings</a>
+        </li>
+        <li>
+            <a href="/log-out" class="nav-item {% if active_page == 'log-out' %}active{% endif %}">Log out</a>
+        </li>
+    </ul>
+</nav>
