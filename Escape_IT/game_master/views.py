@@ -8,6 +8,7 @@ from datetime import datetime
 def home(request):
     context = {
         'rooms': Room.objects.all(),
+        'games': Game.objects.all(),
         'active_page': 'home'
     }
     return render(request, 'game_master/home.html', context)
@@ -47,5 +48,8 @@ def rooms(request):
 
     return render(request, 'game_master/home.html', context)
     
+
+def get_item(dictionary, key):
+    return dictionary.get(key)
 
 

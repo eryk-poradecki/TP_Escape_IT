@@ -8,12 +8,23 @@
 
     <div class="rooms-layout">
         {% for room in rooms %}
-        <div class="room">
+        {% comment %} warunek ifa do zmiany - trzeba to połączyć z aktywnymi grami {% endcomment %}
+        <div class="room {% if room.id == 7 %}active-room{% else  %}inactive-room{% endif %}">
             <img src="../../static/img/placeholder.jpg" class="photo">
             <div class="room-text">
                 <p class="room-number">{{room.room_name}}</p>
-                <p>starting time : 12:00</p>
-                <p>progress : 40%</p>
+                    {% if room.id == 7 %}
+                        <p>starting time : {{room.room_name}}</p>
+                        {% else %}
+                        <p>starting time : --</p>
+                    {% endif %}
+
+                    {% if room.id == 7 %}
+                        <p>progress: {{room.room_name}}</p>
+                        {% else %}
+                        <p>progress : 0%</p>
+                    {% endif %}
+
                 <a class="room-panel-button" href="/rooms/{{ room.id }}">
                     <p>room panel</p>
                 </a>
