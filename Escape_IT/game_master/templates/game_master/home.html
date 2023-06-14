@@ -22,6 +22,10 @@
         {% endfor %}
     </div>
 
+    <form id="form">
+        <input type="text" name="hint">
+    </form>
+
     <script type="text/javascript">
         console.log('Halo!')
 
@@ -33,6 +37,16 @@
             let data = JSON.parse(e.data)
             console.log('Data:', data)
         }
+
+        let form = document.getElementById('form');
+        form.addEventListener('submit', (e)=> {
+            e.preventDefault()
+            let hint = e.target.hint.value;
+            chatSocket.send(JSON.stringify({
+                'hint':hint
+            }))
+            form.reset()
+        })
     </script>
 
 {% endblock content %}
