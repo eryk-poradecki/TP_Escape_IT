@@ -1,0 +1,75 @@
+.notifications-view{
+    margin-top: 12%;
+    margin-left: 10%;
+    width: 130vh;
+}
+
+.header{
+    -webkit-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2f2f2f;
+    border-radius: 15px;
+    color: white;
+}
+
+.header h1{
+    padding: 3.5%;
+    font-size: 50px;
+    text-transform: uppercase;
+}
+
+.bell{
+    width: 5%;
+    margin-right: 3%;
+}
+
+
+.notifications{
+    -webkit-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+}
+
+.notifications h1{
+    margin-left: 4%;
+    padding-top: 2%;
+    font-size: 140%;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.notifications-layout{
+    height: 60vh;
+    margin-left: 3%;
+    display: grid;
+    overflow: scroll;
+}
+
+
+.notification{
+    border-radius: 15px;
+    border: none;
+    justify-self: left;
+    background-color: #e0e0e0c0;
+    padding: 2%;
+    width: 90%;
+    margin: 1%;
+}
+
+p:hover{
+    background-color: rgb(157, 157, 157);
+}
+
+
+
+
+
+
+

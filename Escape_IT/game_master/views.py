@@ -16,6 +16,7 @@ def home(request):
 
 def notifications(request):
     context = {
+        'rooms': Room.objects.all(),
         'active_page': 'notifications'
     }
     return render(request, 'game_master/notifications.html', context)
@@ -23,6 +24,7 @@ def notifications(request):
 
 def settings(request):
     context = {
+        'rooms': Room.objects.all(),
         'active_page': 'settings'
     }
     return render(request, 'game_master/settings.html', context)
