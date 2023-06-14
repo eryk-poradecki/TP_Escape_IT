@@ -19,7 +19,6 @@
 
         <div class="panel">
             <div class="room-information">
-
                 <div class="information-text">
                     <p>Room description</p>
                     <p class="details">{{ room.room_description }}</p>
@@ -29,7 +28,7 @@
                         {% if current_game.0 %}
                             {{ current_game.0.start_date_time }}
                         {% else %}
-                            Not playing
+                            --
                         {% endif %}
                     </p>
                     <p>Group progress </p>
@@ -37,7 +36,7 @@
                         {% if current_game.0 %}
                             {{ current_game.0.progress }} %
                         {% else %}
-                            Not playing
+                            --
                         {% endif %}
                     </p>
                 </div>
@@ -52,14 +51,23 @@
 
             {% comment %} trzeba dodać funkcjonalność {% endcomment %}
             <div class="hints">
-                <h1>HINTS</h1>
-                <textarea placeholder="Write a hint"></textarea>
-                <button class="add-hint-button">Add hint</button>
+                <div>
+                    <h1>HINT DELIVERY</h1>
+                    <p>Please enter the hint content in the textbox below. Once you're done, simply click the "ADD HINT" button, and it will be promptly delivered to the group who needs it.</p>
+                </div>
+               
+                <div class="hints-layout">
+                    <textarea placeholder="Write a hint"></textarea>
+                    <button class="add-hint-button">Add hint</button>
+                </div>
             </div>
 
-            <div class="buttons">
-                <button class="start-game-button">Start game</button>
-                <button class="end-game-button">End game</button>
+            <div class="game-control">
+                <h1>game control</h1>
+                <div class="buttons">
+                    <button class="start-game-button">Start game</button>
+                    <button class="end-game-button">End game</button>
+                </div>
             </div>
             
 
