@@ -5,13 +5,16 @@
 
 
 .room-panel-view{
-    margin-top: 10%;
+    margin-top: 12%;
     width: 90%;
 }
 
 .header{
-    min-width: 100%;
-    height: auto;
+    -webkit-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: 6%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21,7 +24,7 @@
 }
 
 .header h1{
-    padding: 30px;
+    padding: 5%;
     font-size: 50px;
     text-transform: uppercase;
     text-indent: -20%;
@@ -32,11 +35,19 @@
     margin-left: 5%;
 }
 
+.panel{
+    -webkit-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.20);
+    -moz-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.20);
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.20);
+    border-radius: 25px;
+}
+
 .room-information{
-    margin-left: 5%;
+    width: 87%;
     margin-top: 2%;
+    padding: 4%;
     display: grid;
-    grid-template-columns: 55% 40%;
+    grid-template-columns: 60% 30%;
     grid-template-rows: 1fr;
     grid-column-gap: 5%;
 }
@@ -44,21 +55,130 @@
 .information-text{
     display: grid;
     grid-template-columns: 40% 60%;
-    row-gap: 2%;
     padding: 0%;
     text-transform: uppercase;
     font-weight: 800;
-    font-size: 20px;
+    font-size: 120%;
 }
 
 .photo-panel{
     border-radius: 20px;
-    width: 100%;
+    border: #1f1f1f;
+    width: 130%;
     display: flex;
-    align-items: center;
 }
 
 .details{
-    display: inline;
-    font-weight: 500;
+    display: flex;
+    text-transform: none;
+    font-weight: 400;
 }
+
+
+.hints{
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: -2%;
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: 4%;
+}
+
+.hints h1{
+    background-color: #2f2f2f;
+    color: white;
+    border-radius: 8px;
+    text-indent: 1%;
+}
+
+.hints p{
+    margin-top: -1%;
+    font-size: 115%;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.hints-layout{
+    margin-top: -1%;
+    margin-left: 1%;
+    margin-right: 1%;
+    display: grid;
+    grid-template-rows: auto auto;
+    align-items: center;
+}
+
+.panel textarea{
+    padding-top: 1%;
+    padding-bottom: 5%;
+    padding-left: 1%;
+    width: auto;
+    resize: none;
+    border-radius: 15px;
+    border: none;
+    font-size: 120%;
+    font-family: 'Anek Latin', sans-serif;
+    margin-bottom: 3%;
+}
+
+
+.add-hint-button{
+    background-color: #1B4F3F;
+    padding: 1%;
+    width: 20%;
+    justify-self: right;
+}
+
+.game-control{
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: 5%;
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: 4%;
+    text-transform: uppercase;
+}
+
+.game-control h1{
+    background-color: #2f2f2f;
+    color: white;
+    border-radius: 8px;
+    text-indent: 1%;
+}
+
+.buttons{
+    margin-bottom: 5%;
+    padding-bottom: 5%;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 30% 30%;
+    grid-template-rows: 1fr;
+    grid-column-gap: 5%;
+    justify-content: center;
+}
+
+button{
+    -webkit-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
+    background-color: #1B4F3F;
+    color: white;
+    font-family: 'Anel Latin', sans-serif;
+    font-weight: 600;
+    font-size: 120%;
+    text-transform: uppercase;
+    border-radius: 15px;
+    border: none;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+button:hover{
+    background-color: white;
+    color: #2f2f2f;
+}
+
+button:active{
+    background-color: #1f1f1f;
+    color: white;
+}
+

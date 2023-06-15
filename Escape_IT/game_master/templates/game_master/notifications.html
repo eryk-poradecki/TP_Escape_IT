@@ -3,7 +3,39 @@
 {% load static%}
 
  {% block content %}
-        <p>Notifications</p>
+ <head>
+        <link rel="stylesheet" href="../../static/css/notifications-style.css"/>
+</head>
+
+<body>
+        <div class="notifications-view">
+
+                {% comment %} <div class="header">
+                    <h1>notifications</h1>
+                </div> {% endcomment %}
+
+                <div class="header">
+                        <h1>notifications</h1>
+                        <img src="{% static 'img/bell.svg' %}" alt="Return" class="bell"/>
+                </div>
+        
+                <div class="notifications">
+                        <h1>newest notifications</h1>
+                        <div class="notifications-layout">
+                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
+                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
+                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
+                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
+                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
+                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
+                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
+                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
+                        
+                </div>
+        
+         </div>
+</body>
+
 {% endblock content %}
 
 
