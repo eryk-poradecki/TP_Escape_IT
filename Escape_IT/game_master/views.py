@@ -1,16 +1,14 @@
-from django.shortcuts import render, get_object_or_404
-from django.template import loader
-from django.http import HttpResponse
+from django.shortcuts import render, redirect,get_object_or_404
 from .models import Room, Game
 from .forms import CreateGameForm
-from datetime import datetime
 
 
 def home(request):
     context = {
         'rooms': Room.objects.all(),
         'games': Game.objects.all(),
-        'active_page': 'home'
+        'active_page': 'home',
+        'active_games': Game.objects.all().filter(active=True).count()
     }
     return render(request, 'game_master/home.html', context)
 
@@ -34,7 +32,7 @@ def settings(request):
 def room_panel(request, room_id):
     room = get_object_or_404(Room, id=room_id)
     games = Game.objects.filter(room=room_id)
-    current_game = Game.objects.filter(room=room_id).filter(start_date_time__lte=datetime.now()).filter(end_date_time__gte=datetime.now())
+    current_game = Game.objects.filter(room=room_id, active=True).first()
 
     if request.method == 'POST':
         form = CreateGameForm(request.POST)
