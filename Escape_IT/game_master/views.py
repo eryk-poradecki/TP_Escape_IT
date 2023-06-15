@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.http import HttpResponse
 from .models import Room, Game
+from .forms import CreateGameForm
 from datetime import datetime
 
 
@@ -32,13 +33,22 @@ def settings(request):
 
 def room_panel(request, room_id):
     room = get_object_or_404(Room, id=room_id)
+    games = Game.objects.filter(room=room_id)
+    current_game = Game.objects.filter(room=room_id).filter(start_date_time__lte=datetime.now()).filter(end_date_time__gte=datetime.now())
+
+    if request.method == 'POST':
+        form = CreateGameForm(request.POST)
+        if form.is_valid():
+            form.instance.room = room
+            form.save()
+    else:
+        form = CreateGameForm()
+
     context = {
         'room': room,
-        'games': Game.objects.filter(room=room_id),
-        'current_game': Game.objects
-            .filter(room=room_id)
-            .filter(start_date_time__lte=datetime.now())
-            .filter(end_date_time__gte=datetime.now())
+        'games': games,
+        'current_game': current_game,
+        'form': form
     }
     return render(request, 'game_master/room-panel-view.html', context)
 

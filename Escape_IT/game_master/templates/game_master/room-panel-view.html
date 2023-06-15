@@ -3,10 +3,10 @@
 
 {% block content %}
 <head>
-    <link rel="stylesheet" href="../../static/css/room-panel-style.css"/>
+    <link rel="stylesheet" href=" {% static 'css/room-panel-style.css' %}"/>
 </head>
 
-<body>
+    {% if games.count > 0 %}
     <div class="room-panel-view">
 
         <div class="header">
@@ -26,7 +26,7 @@
                     <p>Starting time </p>
                     <p class="details">
                         {% if current_game.0 %}
-                            {{ current_game.0.start_date_time }}
+                            {{ current_game.start_date_time }}
                         {% else %}
                             --
                         {% endif %}
@@ -34,7 +34,7 @@
                     <p>Group progress </p>
                     <p class="details">
                         {% if current_game.0 %}
-                            {{ current_game.0.progress }} %
+                            {{ current_game.progress }} %
                         {% else %}
                             --
                         {% endif %}
@@ -96,9 +96,18 @@
             {% endfor %}
 
         </div> {% endcomment %}
+    {% endif %}
+
+    {% if not games or games.0.active == 0 %}
+        <form class="add-game-form" method="POST" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create game</button>
+        </form>
+    {% endif %}
+
         
     </div>
-    
-</body>
+
    
 {% endblock content %}
