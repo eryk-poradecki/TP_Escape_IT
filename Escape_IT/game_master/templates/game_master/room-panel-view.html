@@ -2,9 +2,10 @@
 {% load static %}
 
 {% block content %}
-<head>
-    <link rel="stylesheet" href=" {% static 'css/room-panel-style.css' %}"/>
-</head>
+    {% csrf_token %}
+    <head>
+        <link rel="stylesheet" href=" {% static 'css/room-panel-style.css' %}"/>
+    </head>
 
     {% if games.count > 0 %}
     <div class="room-panel-view">
@@ -25,7 +26,7 @@
                     {% comment %} Fill with game data {% endcomment %}
                     <p>Starting time </p>
                     <p class="details">
-                        {% if current_game.0 %}
+                        {% if current_game.active %}
                             {{ current_game.start_date_time }}
                         {% else %}
                             --
@@ -33,7 +34,7 @@
                     </p>
                     <p>Group progress </p>
                     <p class="details">
-                        {% if current_game.0 %}
+                        {% if current_game.active %}
                             {{ current_game.progress }} %
                         {% else %}
                             --
@@ -42,7 +43,7 @@
                 </div>
     
                 <div>
-                    <img src="../../static/img/placeholder.jpg" class="photo-panel">
+                    <img src="{% static 'img/placeholder.jpg' %}" class="photo-panel" alt="Room image">
                     {% comment %} tu tez {% endcomment %}
                     
                 </div>
@@ -100,7 +101,6 @@
 
     {% if not games or games.0.active == 0 %}
         <form class="add-game-form" method="POST" action="">
-            {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Create game</button>
         </form>
