@@ -55,11 +55,19 @@
                     <h1>HINT DELIVERY</h1>
                     <p>Please enter the hint content in the textbox below. Once you're done, simply click the "ADD HINT" button, and it will be promptly delivered to the group who needs it.</p>
                 </div>
-               
+
                 <div class="hints-layout">
-                    <textarea placeholder="Write a hint"></textarea>
-                    <button class="add-hint-button">Add hint</button>
+                   <form id="tts-form">
+                    <input type="text" id="tts-text" name="text" placeholder="Enter Text">
+                    <button type="submit">Generate TTS</button>
+                    </form> 
                 </div>
+
+
+{#                <div class="hints-layout">#}
+{#                    <textarea placeholder="Write a hint"></textarea>#}
+{#                    <button class="add-hint-button">Add hint</button>#}
+{#                </div>#}
             </div>
 
             <div class="game-control">
