@@ -42,9 +42,11 @@
                 </div>
     
                 <div>
-                    <img src="../../static/img/placeholder.jpg" class="photo-panel">
-                    {% comment %} tu tez {% endcomment %}
-                    
+                    {% if room.image %}
+                        <img src="{{ room.image.url }}" class="photo" alt="room image">
+                    {% else %}
+                        <img src="{% static 'img/placeholder.png' %}" class="photo" alt="room image">
+                    {% endif %}
                 </div>
                 
             </div>
