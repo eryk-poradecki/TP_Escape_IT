@@ -107,7 +107,7 @@
     align-items: center;
 }
 
-.panel textarea{
+.panel input, textarea{
     padding-top: 1%;
     padding-bottom: 5%;
     padding-left: 1%;
