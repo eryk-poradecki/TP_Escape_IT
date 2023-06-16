@@ -25,7 +25,7 @@
                         <p>progress : 0%</p>
                     {% endif %}
 
-                <a class="{% if room.id == 7 %}room-panel-button{% else  %}room-panel-button-inactive{% endif %}" href="/rooms/{{ room.id }}">
+                <a class="{% if room.current_game %}room-panel-button{% else  %}room-panel-button-inactive{% endif %}" href="/rooms/{{ room.room.id }}">
                     <p>room panel</p>
                 </a>
             </div>
