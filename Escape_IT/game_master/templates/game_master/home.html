@@ -2,25 +2,25 @@
 
 {% block content %}
     <div class="active-games">
-        <p>number of Active Games: {{ active_games }}</p>
+        <p>number of Active Games: {{ active_games_count }}</p>
         <p>games that require your attention : 0</p>
     </div>
 
     <div class="rooms-layout">
         {% for room in rooms %}
         {% comment %} warunek ifa do zmiany - trzeba to połączyć z aktywnymi grami {% endcomment %}
-        <div class="room {% if room.id == 7 %}active-room{% else  %}inactive-room{% endif %}">
+        <div class="room {% if room.current_game %}active-room{% else  %}inactive-room{% endif %}">
             <img src="../../static/img/placeholder.jpg" class="photo">
             <div class="room-text">
-                <p class="room-number">{{room.room_name}}</p>
-                    {% if room.id == 7 %}
-                        <p>starting time : {{room.room_name}}</p>
+                <p class="room-number">{{room.room.room_name}}</p>
+                    {% if room.current_game %}
+                        <p>starting time : {{room.current_game.0.start_date_time.time}}</p>
                         {% else %}
                         <p>starting time : --</p>
                     {% endif %}
 
-                    {% if room.id == 7 %}
-                        <p>progress: {{room.room_name}}</p>
+                    {% if room.current_game %}
+                        <p>progress: {{room.current_game.0.progress}}%</p>
                         {% else %}
                         <p>progress : 0%</p>
                     {% endif %}

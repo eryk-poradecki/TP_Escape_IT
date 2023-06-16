@@ -1,14 +1,26 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import Room, Game
 from .forms import CreateGameForm
+from datetime import datetime
+from django.utils import timezone
 
 
 def home(request):
+    refresh_active_games()
+    rooms = Room.objects.all()
+    rooms_decorated = []
+
+    for room in rooms:
+        rooms_decorated.append({
+            'room': room,
+            'current_game': Game.objects.filter(room=room).filter(start_date_time__lte=datetime.now()).filter(end_date_time__gte=datetime.now()),
+        })
+
     context = {
-        'rooms': Room.objects.all(),
+        'rooms': rooms_decorated,
         'games': Game.objects.all(),
         'active_page': 'home',
-        'active_games': Game.objects.all().filter(active=True).count(),
+        'active_games_count': Game.objects.all().filter(active=True).count(),
         'title': 'Escape IT Home'
     }
     return render(request, 'game_master/home.html', context)
@@ -35,7 +47,7 @@ def settings(request):
 def room_panel(request, room_id):
     room = get_object_or_404(Room, id=room_id)
     games = Game.objects.filter(room=room_id)
-    current_game = Game.objects.filter(room=room_id, active=True).first()
+    current_game = Game.objects.filter(room=room_id).filter(start_date_time__lte=datetime.now()).filter(end_date_time__gte=datetime.now())
 
     if request.method == 'POST':
         form = CreateGameForm(request.POST)
@@ -65,5 +77,14 @@ def rooms(request):
 
 def get_item(dictionary, key):
     return dictionary.get(key)
+
+def refresh_active_games(): 
+    games = Game.objects.all()
+    for game in games:
+        if game.start_date_time <= timezone.now() and game.end_date_time >= timezone.now():
+            game.active = True
+        else:
+            game.active = False
+        game.save()
 
 
