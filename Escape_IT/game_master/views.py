@@ -8,7 +8,8 @@ def home(request):
         'rooms': Room.objects.all(),
         'games': Game.objects.all(),
         'active_page': 'home',
-        'active_games': Game.objects.all().filter(active=True).count()
+        'active_games': Game.objects.all().filter(active=True).count(),
+        'title': 'Escape IT Home'
     }
     return render(request, 'game_master/home.html', context)
 
@@ -16,7 +17,8 @@ def home(request):
 def notifications(request):
     context = {
         'rooms': Room.objects.all(),
-        'active_page': 'notifications'
+        'active_page': 'notifications',
+        'title': 'Escape IT Notifications'
     }
     return render(request, 'game_master/notifications.html', context)
 
@@ -24,7 +26,8 @@ def notifications(request):
 def settings(request):
     context = {
         'rooms': Room.objects.all(),
-        'active_page': 'settings'
+        'active_page': 'settings',
+        'title': 'Escape IT Settings'
     }
     return render(request, 'game_master/settings.html', context)
 
@@ -46,7 +49,8 @@ def room_panel(request, room_id):
         'room': room,
         'games': games,
         'current_game': current_game,
-        'form': form
+        'form': form,
+        'title': f'Escape IT Room {room_id}',
     }
     return render(request, 'game_master/room-panel-view.html', context)
 
