@@ -186,3 +186,13 @@ button:active{
     margin-top: 200px;
 }
 
+.add-game-form input {
+    display: block;
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
