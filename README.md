@@ -50,7 +50,7 @@ The following individuals have contributed to the development of Escape IT:
 
 5. Sylwia Sielska
 - GitHub: [szylviaaa](https://github.com/szylviaaa)
-- Role: UX/UI Designer
+- Role: Frontend Developer
 
 ## License
 
