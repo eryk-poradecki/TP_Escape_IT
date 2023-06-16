@@ -15,7 +15,7 @@
             {% if room.image %}
                 <img src="{{ room.image.url }}" class="photo" alt="room image">
             {% else %}
-                <img src="{% static 'img/placeholder.jpg' %}" class="photo" alt="room image">
+                <img src="{% static 'img/placeholder.png' %}" class="photo" alt="room image">
             {% endif %}
             <div class="room-text">
                 <p class="room-number">{{room.room_name}}</p>
