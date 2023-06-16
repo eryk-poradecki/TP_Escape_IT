@@ -28,6 +28,14 @@ Escape IT is a Django-based web application designed for gamemasters of escape r
 
 4. Open your web browser and access the application at `http://localhost:8000` or `http://127.0.0.1:8000`.
 
+## Unity AR App
+
+The Unity AR app that works in conjunction with Escape IT can be found in the following repository:
+
+- Repository: [TP_Escape_IT_Unity](https://github.com/eryk-poradecki/TP_Escape_IT_Unity)
+
+Please refer to the Unity app repository for instructions on how to set up and use the AR app.
+
 ## Project Creators
 
 The following individuals have contributed to the development of Escape IT:
