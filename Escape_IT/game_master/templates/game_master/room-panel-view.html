@@ -86,7 +86,7 @@
        
 
 
-        {% comment %} <div class="games-list">
+        <div class="games-list">
             {% for game in games %}
                 <div>
                     <h1>{{ game.id }}</h1>
@@ -97,7 +97,7 @@
 
             {% endfor %}
 
-        </div> {% endcomment %}
+        </div> 
     {% endif %}
 
     {% if not games or games.0.active == 0 %}
