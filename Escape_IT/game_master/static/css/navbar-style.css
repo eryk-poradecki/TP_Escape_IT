@@ -6,10 +6,13 @@
     margin: 0;
     padding: 0;
     width: 250px; /* Adjust the width as needed */
-    height: 160vh; /* Set the height to 100% */
+    height: auto; /* Set the height to 100% */
     background-color: #2F2F2F;
-    position: static;
-    padding-top: 52%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding-top: 9%;
 }
 
 .vertical-navbar li {
