@@ -1,8 +1,10 @@
+import os
+
 from django.shortcuts import render, get_object_or_404
-from django.template import loader
-from django.http import HttpResponse
+from django.http import FileResponse, Http404, HttpResponse
 from .models import Room, Game
 from datetime import datetime
+from django.conf import settings as django_settings
 
 
 def home(request):
@@ -55,3 +57,10 @@ def get_item(dictionary, key):
     return dictionary.get(key)
 
 
+def return_hint_audio(request):
+    audio_path = os.path.join(django_settings.MEDIA_ROOT, 'hint.mp3')
+    if os.path.exists(audio_path):
+        with open(audio_path, 'rb') as audio_file:
+            return HttpResponse(audio_file, content_type='audio/mpeg')
+    else:
+        raise Http404('Audio file not found.')
