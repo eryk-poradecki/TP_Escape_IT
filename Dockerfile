@@ -22,7 +22,9 @@ RUN python -m venv /py && \
     apk add --no-cache build-base && \
     apk add --no-cache libffi-dev && \
     /py/bin/pip install -r /requirements.txt && \
-    adduser --disabled-password --no-create-home django-user
+    adduser --disabled-password --no-create-home django-user && \
+    /py/bin/python manage.py makemigrations && \
+    /py/bin/python manage.py migrate
 
 # Set the environment variables
 ENV PATH="/py/bin:/root/google-cloud-sdk/bin:$PATH"

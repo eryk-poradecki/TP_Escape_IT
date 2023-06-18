@@ -9,6 +9,7 @@ services:
     volumes:
       - ./Escape_IT:/Escape_IT
       - ./static:/static
+      - ./media:/media
     command: python manage.py runserver 0.0.0.0:8000
     environment:
       - DEBUG=1
