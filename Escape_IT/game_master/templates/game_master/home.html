@@ -1,5 +1,7 @@
 {% extends 'game_master/base.html' %}
 
+{% load static %}
+
 {% block content %}
     <div class="active-games">
         <p>number of Active Games: {{ active_games_count }}</p>
@@ -10,7 +12,11 @@
         {% for room in rooms %}
         {% comment %} warunek ifa do zmiany - trzeba to połączyć z aktywnymi grami {% endcomment %}
         <div class="room {% if room.current_game %}active-room{% else  %}inactive-room{% endif %}">
-            <img src="../../static/img/placeholder.jpg" class="photo">
+            {% if room.image %}
+                <img src="{{ room.image.url }}" class="photo" alt="room image">
+            {% else %}
+                <img src="{% static 'img/placeholder.png' %}" class="photo" alt="room image">
+            {% endif %}
             <div class="room-text">
                 <p class="room-number">{{room.room.room_name}}</p>
                     {% if room.current_game %}
@@ -32,10 +38,6 @@
         </div>
         {% endfor %}
     </div>
-
-    <form id="form">
-        <input type="text" name="hint">
-    </form>
 
     <script type="text/javascript">
         console.log('Halo!')
