@@ -82,6 +82,12 @@ class UnityConsumer(WebsocketConsumer):
         type = text_data_json['type']
 
         if type == 'help_request':
+            Notification.objects.create(
+                type=type,
+                message='Players need help!',
+                date_time=timezone.now(),
+                room=Room.objects.filter(id=self.room_id),
+            )
             async_to_sync(self.channel_layer.group_send)(
                 'web',
                 {
