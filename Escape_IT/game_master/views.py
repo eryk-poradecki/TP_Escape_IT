@@ -59,6 +59,7 @@ def room_panel(request, room_id):
                 form.instance.active = True
             else:
                 form.instance.active = False
+            form.instance.progress = 0
 
             form.save()
     else:
