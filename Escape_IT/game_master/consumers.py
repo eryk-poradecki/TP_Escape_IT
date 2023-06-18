@@ -2,6 +2,7 @@ import json
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 
+
 class UnityConsumer(WebsocketConsumer):
     def connect(self):
         self.accept()
@@ -19,13 +20,15 @@ class UnityConsumer(WebsocketConsumer):
 
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        hint = text_data_json['hint'];
+        hint = text_data_json['hint']
+
+        audio_content = generate_tts_audio(hint)
 
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
-                'type': 'hint_message',
-                'message': hint
+                'type': 'audio_message',
+                'audio_content': audio_content
             }
         )
 
