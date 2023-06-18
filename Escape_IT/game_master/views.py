@@ -1,7 +1,11 @@
-from django.shortcuts import render, redirect,get_object_or_404
+import os
+
+from django.http import FileResponse, Http404, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Room, Game
 from .forms import CreateGameForm
 from datetime import datetime
+from django.conf import settings as django_settings
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
@@ -96,3 +100,10 @@ def refresh_active_games():
         game.save()
 
 
+def return_hint_audio(request):
+    audio_path = os.path.join(django_settings.MEDIA_ROOT, 'hint.mp3')
+    if os.path.exists(audio_path):
+        with open(audio_path, 'rb') as audio_file:
+            return HttpResponse(audio_file, content_type='audio/mpeg')
+    else:
+        raise Http404('Audio file not found.')
