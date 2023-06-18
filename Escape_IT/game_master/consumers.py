@@ -6,6 +6,8 @@ from asgiref.sync import async_to_sync
 from .text_to_speech import generate_tts_audio
 from django.conf import settings
 from urllib.parse import parse_qs
+from .models import Notification, Room
+from django.utils import timezone
 
 
 class WebConsumer(WebsocketConsumer):
@@ -62,7 +64,7 @@ class UnityConsumer(WebsocketConsumer):
         self.room_group_name = 'unity'
         room_id = self.scope['query_string'].decode('utf-8')
         parsed_qs = parse_qs(room_id)
-        room_id = parsed_qs.get('room_id', [''])[0]
+        self.room_id = parsed_qs.get('room_id', [''])[0]
 
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
