@@ -3,6 +3,7 @@ from .models import Room, Game
 from .forms import CreateGameForm
 from datetime import datetime
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 
 def home(request):
@@ -44,6 +45,7 @@ def settings(request):
     return render(request, 'game_master/settings.html', context)
 
 
+@csrf_exempt
 def room_panel(request, room_id):
     room = get_object_or_404(Room, id=room_id)
     games = Game.objects.filter(room=room_id)
@@ -53,6 +55,11 @@ def room_panel(request, room_id):
         form = CreateGameForm(request.POST)
         if form.is_valid():
             form.instance.room = room
+            if (form.instance.start_date_time <= timezone.now() and form.instance.end_date_time >= timezone.now()):
+                form.instance.active = True
+            else:
+                form.instance.active = False
+
             form.save()
     else:
         form = CreateGameForm()
