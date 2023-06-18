@@ -15,3 +15,10 @@ class Game(models.Model):
     end_date_time = models.DateTimeField()
     progress = models.IntegerField()
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
+
+
+class Notification(models.Model):
+    type = models.CharField(max_length=50)
+    message = models.CharField(max_length=300)
+    date_time = models.DateTimeField()
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
