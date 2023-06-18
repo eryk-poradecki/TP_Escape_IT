@@ -40,6 +40,12 @@ class WebConsumer(WebsocketConsumer):
                 }
             )
 
+    def disconnect(self, code):
+        self.channel_layer.group_discard(
+            self.room_group_name,
+            self.channel_name
+        )
+
     def help_request(self, event):
         message = event['message']
 
@@ -76,6 +82,12 @@ class UnityConsumer(WebsocketConsumer):
                     'message': 'Help was requested by the players!'
                 }
             )
+
+    def disconnect(self, code):
+        self.channel_layer.group_discard(
+            self.room_group_name,
+            self.channel_name
+        )
 
     def audio_ready(self, event):
         message = event['message']
