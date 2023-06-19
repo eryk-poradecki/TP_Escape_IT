@@ -40,18 +40,8 @@
     </div>
 
     <script type="text/javascript">
-
-        let url = `ws://${window.location.host}/ws/socket-server/web`
-
-        const chatSocket = new WebSocket(url);
-
-        chatSocket.onmessage = function(e){
-            //let data = JSON.parse(e.data)
-            console.log('Data:', e)
-        }
-
         let form = document.getElementById('form');
-        form.addEventListener('submit', (e)=> {
+        form.addEventListener('submit', (e) => {
             e.preventDefault()
             let hint = e.target.hint.value;
 

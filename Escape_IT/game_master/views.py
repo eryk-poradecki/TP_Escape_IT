@@ -2,7 +2,7 @@ import os
 
 from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Room, Game
+from .models import Room, Game, Notification
 from .forms import CreateGameForm
 from datetime import datetime
 from django.conf import settings as django_settings
@@ -35,7 +35,8 @@ def notifications(request):
     context = {
         'rooms': Room.objects.all(),
         'active_page': 'notifications',
-        'title': 'Escape IT Notifications'
+        'title': 'Escape IT Notifications',
+        'notifications': Notification.objects.all().order_by('-date_time')[:10],
     }
     return render(request, 'game_master/notifications.html', context)
 

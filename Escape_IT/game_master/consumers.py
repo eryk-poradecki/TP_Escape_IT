@@ -66,8 +66,6 @@ class UnityConsumer(WebsocketConsumer):
         parsed_qs = parse_qs(room_id)
         self.room_id = parsed_qs.get('room_id', [''])[0]
 
-        print("notification received")
-
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
             self.channel_name
@@ -84,9 +82,11 @@ class UnityConsumer(WebsocketConsumer):
         type = text_data_json['type']
 
         if type == 'help_request':
+            notificationMessage = f"Players in room {self.room_id} need help!"
+
             Notification.objects.create(
                 type=type,
-                message='Players need help!',
+                message=notificationMessage,
                 date_time=timezone.now(),
                 room=Room.objects.filter(id=self.room_id).first(),
             )
@@ -94,7 +94,7 @@ class UnityConsumer(WebsocketConsumer):
                 'web',
                 {
                     'type': 'help_request',
-                    'message': 'Help was requested by the players!'
+                    'message': notificationMessage
                 }
             )
 
