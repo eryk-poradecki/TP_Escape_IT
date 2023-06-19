@@ -49,7 +49,8 @@ class WebConsumer(WebsocketConsumer):
             self.channel_name
         )
 
-    def help_request(self, event):
+    def event_handler(self, event):
+        type = event['type']
         message = event['message']
 
         self.send(text_data=json.dumps({
@@ -82,21 +83,40 @@ class UnityConsumer(WebsocketConsumer):
         type = text_data_json['type']
 
         if type == 'help_request':
-            notificationMessage = f"Players in room {self.room_id} need help!"
-
+            notification_message = f"Players in room {self.room_id} need help!"
             Notification.objects.create(
                 type=type,
-                message=notificationMessage,
+                message=notification_message,
                 date_time=timezone.now(),
                 room=Room.objects.filter(id=self.room_id).first(),
             )
+
             async_to_sync(self.channel_layer.group_send)(
                 'web',
                 {
-                    'type': 'help_request',
-                    'message': notificationMessage
+                    'type': 'event_handler',
+                    'request_type': type,
+                    'message': notification_message
                 }
             )
+        elif type =='custom_help_request':
+            notification_message = text_data_json['message']
+            Notification.objects.create(
+                type=type,
+                message=notification_message,
+                date_time=timezone.now(),
+                room=Room.objects.filter(id=self.room_id).first(),
+            )
+
+            async_to_sync(self.channel_layer.group_send)(
+                'web',
+                {
+                    'type': 'event_handler',
+                    'request_type': type,
+                    'message': notification_message
+                }
+            )
+
 
     def disconnect(self, code):
         self.channel_layer.group_discard(
