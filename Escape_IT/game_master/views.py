@@ -19,6 +19,7 @@ def home(request):
         rooms_decorated.append({
             'room': room,
             'current_game': Game.objects.filter(room=room).filter(start_date_time__lte=datetime.now()).filter(end_date_time__gte=datetime.now()),
+            'notification': Notification.objects.filter(room=room),
         })
 
     context = {
@@ -55,6 +56,9 @@ def room_panel(request, room_id):
     room = get_object_or_404(Room, id=room_id)
     games = Game.objects.filter(room=room_id)
     current_game = Game.objects.filter(room=room_id).filter(start_date_time__lte=datetime.now()).filter(end_date_time__gte=datetime.now())
+    current_time = timezone.now()
+    played_games = Game.objects.filter(room=room_id).filter(start_date_time__lte=datetime.now()).filter(end_date_time__lte=datetime.now())
+    upcoming_games = Game.objects.filter(room=room_id).filter(start_date_time__gte=datetime.now()).filter(end_date_time__gte=datetime.now())
 
     if request.method == 'POST':
         form = CreateGameForm(request.POST)
@@ -74,6 +78,9 @@ def room_panel(request, room_id):
         'room': room,
         'games': games,
         'current_game': current_game,
+        'current_time': current_time,
+        'played_games': played_games,
+        'upcoming_games': upcoming_games,
         'form': form,
         'title': f'Escape IT Room {room_id}',
     }

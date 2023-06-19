@@ -24,7 +24,11 @@
                         <h1>newest notifications</h1>
                         <div id="notifications-container" class="notifications-layout">
                                 {% for notification in notifications %}
-                                        <p class="notification">{{ notification.message }}</p>
+                                        <div class="notification">
+                                                <p>Room "{{ notification.room.room_name }}" needs help!
+                                                        {{ notification.message }}. Click here, to send help!</p>
+                                                <p>{{ notification.date_time }}</p>
+                                        </div>
                                 {% endfor %}
                         </div>
                 

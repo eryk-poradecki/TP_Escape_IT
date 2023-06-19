@@ -43,7 +43,7 @@
     
                 <div>
                     {% if room.image %}
-                        <img src="{{ room.image.url }}" class="photo" alt="room image">
+                        <img src="{{ room.image.url }}" class="photo-panel" alt="room image">
                     {% else %}
                         <img src="{% static 'img/placeholder.png' %}" class="photo" alt="room image">
                     {% endif %}
@@ -52,7 +52,7 @@
             </div>
 
             {% comment %} trzeba dodać funkcjonalność {% endcomment %}
-            <div class="{% if games.0.active %} hints {% else %} hints-inactive {% endif %}">
+            <div class="{% if current_game %} hints {% else %} hints-inactive {% endif %}">
                 <div>
                     <h1>HINT DELIVERY</h1>
                     <p>Please enter the hint content in the textbox below. Once you're done, simply click the "ADD HINT" button, and it will be promptly delivered to the group who needs it.</p>
@@ -75,33 +75,56 @@
 
             <div class="game-control">
                 <h1>game control</h1>
+                <p class="game-control-manual">Here you can start and end games. After filling out the form below, click the "ADD GAME"
+                    button to start a new game or add it to the list of upcoming games. If there is already 
+                    a game in progress, you can end it by clicking the "END GAME" button.
+                </p>
                 {% if not games or games.0.active == 0 %}
                     <form class="add-game-form" method="POST" action="">
                         {{ form.as_p }}
-                        <button type="submit">Add game</button>
+                        <button type="submit" class="add-game-button">Add game</button>
                     </form>
                 {% endif %}
                 <div class="buttons">
                     {% comment %} <button class="start-game-button">Start game</button> {% endcomment %}
-                    <button class="end-game-button {% if not games.0.active %} end-game-button-inactive {% endif %}">End game</button>
+                    <button class="end-game-button {% if not games.0.active == 0 %} end-game-button-inactive {% endif %}">End game</button>
                 </div>
             </div>
             
             <div class="games-list">
-                <h1 class="games-list-header">games history</h1>
-                <p>Last game was played on {{ games.0.start_date_time }}</p>
-                <p>Total games played: {{ games.count }}</p>
+                <h1 class="games-list-header">upcoming games</h1>
+                <p class="stats">The closest upcoming game is on {{ upcoming_games.0.start_date_time }}</p>
+                <p class="stats">Number of upcoming games: {{ upcoming_games.count }}</p> 
                 {% comment %} <div class="games-layout"> {% endcomment %}
                     <div class="games-scroll">
                         {% for game in games %}
+                        {% if game.start_date_time > current_time %}
+                        <h1>Game {{ game.id }}</h1>
+                        <p>Start Time: {{ game.start_date_time }}</p>
+                        <p>End Time: {{ game.end_date_time }}</p>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                {% comment %} </div> {% endcomment %}
+            </div>   
+            
+            <div class="games-list">
+                <h1 class="games-list-header">games history</h1>
+                <p class="stats">Last game was played on {{ games.0.start_date_time }}</p>
+                <p class="stats">Total games played: {{ played_games.count }}</p>
+                {% comment %} <div class="games-layout"> {% endcomment %}
+                    <div class="games-scroll">
+                        {% for game in games %}
+                        {% if game.start_date_time < current_time %}
                         <h1>Game {{ game.id }}</h1>
                         <p>Start Time: {{ game.start_date_time }}</p>
                         <p>End Time: {{ game.end_date_time }}</p>
                         <p>Game Progress: {{ game.progress }}%</p>
+                        {% endif %}
                         {% endfor %}
                     </div>
                 {% comment %} </div> {% endcomment %}
-            </div>        
+            </div> 
 
         </div>
 

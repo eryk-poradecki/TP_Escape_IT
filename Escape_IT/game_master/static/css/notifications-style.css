@@ -49,7 +49,9 @@
     height: 60vh;
     margin-left: 3%;
     display: grid;
-    overflow: scroll;
+    row-gap: 0;
+    grid-auto-rows: min-content;
+    overflow: auto;
 }
 
 
@@ -57,13 +59,16 @@
     border-radius: 15px;
     border: none;
     justify-self: left;
+    display: flexbox;
     background-color: #e0e0e0c0;
     padding: 2%;
     width: 90%;
     margin: 1%;
+    max-height: 3vh;
+    right: 0;
 }
 
-p:hover{
+.notification:hover{
     background-color: rgb(157, 157, 157);
 }
 
