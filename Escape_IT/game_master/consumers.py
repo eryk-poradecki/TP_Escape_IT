@@ -66,6 +66,8 @@ class UnityConsumer(WebsocketConsumer):
         parsed_qs = parse_qs(room_id)
         self.room_id = parsed_qs.get('room_id', [''])[0]
 
+        print("notification received")
+
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
             self.channel_name
