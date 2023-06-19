@@ -6,7 +6,7 @@ from asgiref.sync import async_to_sync
 from .text_to_speech import generate_tts_audio
 from django.conf import settings
 from urllib.parse import parse_qs
-from .models import Notification, Room
+from .models import Notification, Room, Game
 from django.utils import timezone
 
 
@@ -50,11 +50,11 @@ class WebConsumer(WebsocketConsumer):
         )
 
     def event_handler(self, event):
-        type = event['type']
+        type = event['event_type']
         message = event['message']
 
         self.send(text_data=json.dumps({
-            'type': 'help_request',
+            'type': type,
             'message': message
         }))
 
@@ -95,7 +95,7 @@ class UnityConsumer(WebsocketConsumer):
                 'web',
                 {
                     'type': 'event_handler',
-                    'request_type': type,
+                    'event_type': type,
                     'message': notification_message
                 }
             )
@@ -112,7 +112,31 @@ class UnityConsumer(WebsocketConsumer):
                 'web',
                 {
                     'type': 'event_handler',
-                    'request_type': type,
+                    'event_type': type,
+                    'message': notification_message
+                }
+            )
+        elif type == 'progress':
+            current_date_time = timezone.now()
+            game = Game.objects.filter(
+                room_id=self.room_id,
+                start_date_time__lte=current_date_time,
+                end_date_time__gte=current_date_time,
+            ).latest('start_date_time')
+            game.progress += 25
+            game.save()
+            notification_message = f'Players in room {self.room_id} made progress. Current progress: {game.progress}%'
+            Notification.objects.create(
+                type=type,
+                message=notification_message,
+                date_time=current_date_time,
+                room=Room.objects.filter(id=self.room_id).first(),
+            )
+            async_to_sync(self.channel_layer.group_send)(
+                'web',
+                {
+                    'type': 'event_handler',
+                    'event_type': type,
                     'message': notification_message
                 }
             )
