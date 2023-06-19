@@ -88,7 +88,7 @@ class UnityConsumer(WebsocketConsumer):
                 type=type,
                 message='Players need help!',
                 date_time=timezone.now(),
-                room=Room.objects.filter(id=self.room_id),
+                room=Room.objects.filter(id=self.room_id).first(),
             )
             async_to_sync(self.channel_layer.group_send)(
                 'web',
