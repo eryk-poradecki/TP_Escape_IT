@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block content %}
-<head>
-    <link rel="stylesheet" href="../../static/css/room-panel-style.css"/>
-</head>
+    {% csrf_token %}
+    <head>
+        <link rel="stylesheet" href=" {% static 'css/room-panel-style.css' %}"/>
+    </head>
 
-<body>
+    {% if games.count > 0 %}
     <div class="room-panel-view">
 
         <div class="header">
@@ -22,10 +23,9 @@
                 <div class="information-text">
                     <p>Room description</p>
                     <p class="details">{{ room.room_description }}</p>
-                    {% comment %} Fill with game data {% endcomment %}
                     <p>Starting time </p>
                     <p class="details">
-                        {% if current_game.0 %}
+                        {% if current_game %}
                             {{ current_game.0.start_date_time }}
                         {% else %}
                             --
@@ -33,7 +33,7 @@
                     </p>
                     <p>Group progress </p>
                     <p class="details">
-                        {% if current_game.0 %}
+                        {% if current_game %}
                             {{ current_game.0.progress }} %
                         {% else %}
                             --
@@ -42,55 +42,77 @@
                 </div>
     
                 <div>
-                    <img src="../../static/img/placeholder.jpg" class="photo-panel">
-                    {% comment %} tu tez {% endcomment %}
-                    
+                    {% if room.image %}
+                        <img src="{{ room.image.url }}" class="photo" alt="room image">
+                    {% else %}
+                        <img src="{% static 'img/placeholder.png' %}" class="photo" alt="room image">
+                    {% endif %}
                 </div>
                 
             </div>
 
             {% comment %} trzeba dodać funkcjonalność {% endcomment %}
-            <div class="hints">
+            <div class="{% if games.0.active %} hints {% else %} hints-inactive {% endif %}">
                 <div>
                     <h1>HINT DELIVERY</h1>
                     <p>Please enter the hint content in the textbox below. Once you're done, simply click the "ADD HINT" button, and it will be promptly delivered to the group who needs it.</p>
-                </div>
-               
+            </div>
+
+            <form id="tts-form">
                 <div class="hints-layout">
-                    <textarea placeholder="Write a hint"></textarea>
-                    <button class="add-hint-button">Add hint</button>
+                    <input type="text" id="tts-text" name="text" placeholder="Write a hint">
+                    <button class="add-hint-button" type="submit">Add hint</button>
                 </div>
+            </form>
+
+
+
+{#                <div class="hints-layout">#}
+{#                    <textarea placeholder="Write a hint"></textarea>#}
+{#                    <button class="add-hint-button">Add hint</button>#}
+{#                </div>#}
             </div>
 
             <div class="game-control">
                 <h1>game control</h1>
+                {% if not games or games.0.active == 0 %}
+                    <form class="add-game-form" method="POST" action="">
+                        {{ form.as_p }}
+                        <button type="submit">Add game</button>
+                    </form>
+                {% endif %}
                 <div class="buttons">
-                    <button class="start-game-button">Start game</button>
-                    <button class="end-game-button">End game</button>
+                    {% comment %} <button class="start-game-button">Start game</button> {% endcomment %}
+                    <button class="end-game-button {% if not games.0.active %} end-game-button-inactive {% endif %}">End game</button>
                 </div>
             </div>
             
+            <div class="games-list">
+                <h1 class="games-list-header">games history</h1>
+                <p>Last game was played on {{ games.0.start_date_time }}</p>
+                <p>Total games played: {{ games.count }}</p>
+                {% comment %} <div class="games-layout"> {% endcomment %}
+                    <div class="games-scroll">
+                        {% for game in games %}
+                        <h1>Game {{ game.id }}</h1>
+                        <p>Start Time: {{ game.start_date_time }}</p>
+                        <p>End Time: {{ game.end_date_time }}</p>
+                        <p>Game Progress: {{ game.progress }}%</p>
+                        {% endfor %}
+                    </div>
+                {% comment %} </div> {% endcomment %}
+            </div>        
 
         </div>
 
-       
 
+        
+    {% endif %}
 
-        {% comment %} <div class="games-list">
-            {% for game in games %}
-                <div>
-                    <h1>{{ game.id }}</h1>
-                    <p>Start Time: {{ game.start_date_time }}</p>
-                    <p>End Time: {{ game.end_date_time }}</p>
-                    <p>Game Progress: {{ game.progress }}</p>
-                </div>
+    
 
-            {% endfor %}
-
-        </div> {% endcomment %}
         
     </div>
-    
-</body>
+
    
 {% endblock content %}

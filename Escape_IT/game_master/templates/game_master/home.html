@@ -1,8 +1,10 @@
 {% extends 'game_master/base.html' %}
 
+{% load static %}
+
 {% block content %}
     <div class="active-games">
-        <p>number of active games : 4</p>
+        <p>number of Active Games: {{ active_games_count }}</p>
         <p>games that require your attention : 0</p>
     </div>
 
@@ -16,20 +18,20 @@
                 <img src="{% static 'img/placeholder.png' %}" class="photo" alt="room image">
             {% endif %}
             <div class="room-text">
-                <p class="room-number">{{room.room_name}}</p>
-                    {% if room.id == 7 %}
-                        <p>starting time : {{room.room_name}}</p>
+                <p class="room-number">{{room.room.room_name}}</p>
+                    {% if room.current_game %}
+                        <p>starting time : {{room.current_game.0.start_date_time.time}}</p>
                         {% else %}
                         <p>starting time : --</p>
                     {% endif %}
 
-                    {% if room.id == 7 %}
-                        <p>progress: {{room.room_name}}</p>
+                    {% if room.current_game %}
+                        <p>progress: {{room.current_game.0.progress}}%</p>
                         {% else %}
                         <p>progress : 0%</p>
                     {% endif %}
 
-                <a class="{% if room.id == 7 %}room-panel-button{% else  %}room-panel-button-inactive{% endif %}" href="/rooms/{{ room.id }}">
+                <a class="{% if room.current_game %}room-panel-button{% else  %}room-panel-button-inactive{% endif %}" href="/rooms/{{ room.room.id }}">
                     <p>room panel</p>
                 </a>
             </div>
@@ -40,7 +42,8 @@
     <script type="text/javascript">
         console.log('Halo!')
 
-        let url = `ws://${window.location.host}/ws/socket-server/`
+        let url = `ws://${window.location.host}/ws/socket-server/web`
+
 
         const chatSocket = new WebSocket(url);
 
@@ -53,8 +56,10 @@
         form.addEventListener('submit', (e)=> {
             e.preventDefault()
             let hint = e.target.hint.value;
+
             chatSocket.send(JSON.stringify({
-                'hint':hint
+                'type': 'help_response',
+                'hint': hint
             }))
             form.reset()
         })
