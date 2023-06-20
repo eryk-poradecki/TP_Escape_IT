@@ -25,8 +25,7 @@
                         <div id="notifications-container" class="notifications-layout">
                                 {% for notification in notifications %}
                                         <div class="notification">
-                                                <p>Room "{{ notification.room.room_name }}" needs help!
-                                                        {{ notification.message }}. Click here, to send help!</p>
+                                                <p>{{ notification.message }}. Click here, to send help!</p>
                                                 <p>{{ notification.date_time }}</p>
                                         </div>
                                 {% endfor %}

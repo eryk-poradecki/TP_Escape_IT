@@ -83,11 +83,11 @@ class UnityConsumer(WebsocketConsumer):
         type = text_data_json['type']
 
         if type == 'help_request':
-            notification_message = f"Players in room {self.room_id} need help!"
+            notification_message = f"Players in Room {self.room_id} need help!"
             Notification.objects.create(
                 type=type,
                 message=notification_message,
-                date_time=timezone.now(),
+                date_time=timezone.now().__add__(timezone.timedelta(hours=2)),
                 room=Room.objects.filter(id=self.room_id).first(),
             )
 
@@ -100,11 +100,11 @@ class UnityConsumer(WebsocketConsumer):
                 }
             )
         elif type =='custom_help_request':
-            notification_message = text_data_json['message']
+            notification_message = f"Room {self.room_id} " + text_data_json['message']
             Notification.objects.create(
                 type=type,
                 message=notification_message,
-                date_time=timezone.now(),
+                date_time=timezone.now().__add__(timezone.timedelta(hours=2)),
                 room=Room.objects.filter(id=self.room_id).first(),
             )
 
@@ -117,30 +117,33 @@ class UnityConsumer(WebsocketConsumer):
                 }
             )
         elif type == 'progress':
-            current_date_time = timezone.now()
-            game = Game.objects.filter(
-                room_id=self.room_id,
-                start_date_time__lte=current_date_time,
-                end_date_time__gte=current_date_time,
-            ).latest('start_date_time')
-            game.progress += 25
-            game.save()
-            notification_message = f'Players in room {self.room_id} made progress. Current progress: {game.progress}%'
-            Notification.objects.create(
-                type=type,
-                message=notification_message,
-                date_time=current_date_time,
-                room=Room.objects.filter(id=self.room_id).first(),
-            )
-            async_to_sync(self.channel_layer.group_send)(
-                'web',
-                {
-                    'type': 'event_handler',
-                    'event_type': type,
-                    'message': notification_message
-                }
-            )
-
+            current_date_time = timezone.now().__add__(timezone.timedelta(hours=2))
+            try:
+                game = Game.objects.filter(
+                    room_id=self.room_id,
+                    start_date_time__lte=current_date_time,
+                    end_date_time__gte=current_date_time,
+                ).latest('start_date_time')
+                game.progress += 25
+                game.save()
+                notification_message = f'Players in Room {self.room_id} made progress. Current progress: {game.progress}%'
+                Notification.objects.create(
+                    type=type,
+                    message=notification_message,
+                    date_time=current_date_time,
+                    room=Room.objects.filter(id=self.room_id).first(),
+                )
+                async_to_sync(self.channel_layer.group_send)(
+                    'web',
+                    {
+                        'type': 'event_handler',
+                        'event_type': type,
+                        'message': notification_message
+                    }
+                )
+            except (Game.DoesNotExist):
+                print("Game does not exist")
+            
 
     def disconnect(self, code):
         self.channel_layer.group_discard(
