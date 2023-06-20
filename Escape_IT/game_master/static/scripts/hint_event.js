@@ -1,4 +1,4 @@
-var socket = new WebSocket('ws://127.0.0.1:8000'); // not sure if it's correct
+var socket = new WebSocket('ws://127.0.0.1:8000/ws/socket-server/web'); // not sure if it's correct
 var form = document.getElementById('tts-form');
 var textInput = document.getElementById('tts-text');
 
@@ -7,7 +7,7 @@ form.addEventListener('submit', function (event) {
     var text = textInput.value;
 
     var message = {
-        'type': 'hint',
+        'type': 'help_response',
         'hint': text
     };
 
