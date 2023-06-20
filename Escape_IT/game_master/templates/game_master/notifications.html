@@ -32,6 +32,7 @@
                                                 var notificationDiv{{ forloop.counter }} = document.getElementById("notification{{ forloop.counter }}");
                                                 notificationDiv{{ forloop.counter }}.addEventListener("click", function() {
                                                         location.href = "/rooms/{{ notification.room_id }}";
+                                                        
                                                         fetch("{% url 'resolve_notification' notification.id %}",
                                                         {
                                                                 method: "POST",                        

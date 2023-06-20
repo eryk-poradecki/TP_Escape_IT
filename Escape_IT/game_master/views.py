@@ -119,9 +119,9 @@ def return_hint_audio(request):
     else:
         raise Http404('Audio file not found.')
 
-
+@csrf_exempt
 def resolve_notification(request, id):
-    print("Resolving notification" + id)
     notification = Notification.objects.get(id=id)
     notification.resolved = True
     notification.save()
+    return HttpResponse("Notification resolved")

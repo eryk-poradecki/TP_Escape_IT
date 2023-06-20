@@ -8,5 +8,5 @@ urlpatterns = [
     path('rooms/', game_master_views.rooms, name='rooms'),
     path('rooms/<int:room_id>/', game_master_views.room_panel, name='room-detail'),
     path('audio/', game_master_views.return_hint_audio, name='generate_audio'),
-    path('notifications/resolve_notification/<int:notification_id>/', game_master_views.resolve_notification, name='resolve_notification')
+    path('notifications/resolve_notification/<int:id>/', game_master_views.resolve_notification, name='resolve_notification')
 ]
