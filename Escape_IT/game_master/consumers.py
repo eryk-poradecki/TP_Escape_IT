@@ -55,6 +55,8 @@ class WebConsumer(WebsocketConsumer):
 
         self.send(text_data=json.dumps({
             'type': type,
+            'room_id': event['room_id'],
+            'notification_id': event['notification_id'],
             'message': message
         }))
 
@@ -97,6 +99,8 @@ class UnityConsumer(WebsocketConsumer):
                 {
                     'type': 'event_handler',
                     'event_type': type,
+                    'room_id': self.room_id,
+                    'notification_id': Notification.objects.latest('date_time').id,
                     'message': notification_message
                 }
             )
@@ -115,6 +119,8 @@ class UnityConsumer(WebsocketConsumer):
                 {
                     'type': 'event_handler',
                     'event_type': type,
+                    'room_id': self.room_id,
+                    'notification_id': Notification.objects.latest('date_time').id,
                     'message': notification_message
                 }
             )

@@ -13,7 +13,7 @@ chatSocket.onmessage = function(e){
 
     if (data.type === "help_request" || data.type === "custom_help_request" || data.type === "progress") {
         let div = document.createElement('div');
-        div.setAttribute("class", "notification");
+        div.setAttribute("class", "notification notification_not_resolved");
 
         let p = document.createElement('p');
         p.innerText = data.message + ". Click here to send help!";
@@ -22,6 +22,13 @@ chatSocket.onmessage = function(e){
         let date = new Date()
         let minutesDisplay = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
         pDate.innerText = months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear() + ", " + date.getHours() + ":" + minutesDisplay;
+
+        div.addEventListener("click", function() {
+            location.href = `/rooms/${data.room_id}`;
+            fetch(`/notifications/resolve_notification/${data.notification_id}/`, {
+                    method: "POST",                        
+            });
+        });
 
         div.appendChild(p);
         div.appendChild(pDate);
