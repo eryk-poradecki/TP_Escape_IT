@@ -12,8 +12,8 @@
         {% for room in rooms %}
         {% comment %} warunek ifa do zmiany - trzeba to połączyć z aktywnymi grami {% endcomment %}
         <div class="room {% if room.current_game %}active-room{% else  %}inactive-room{% endif %}">
-            {% if room.image %}
-                <img src="{{ room.image.url }}" class="photo" alt="room image">
+            {% if room.room.image %}
+                <img src="{{ room.room.image.url }}" class="photo" alt="room image">
             {% else %}
                 <img src="{% static 'img/placeholder.png' %}" class="photo" alt="room image">
             {% endif %}
@@ -40,14 +40,16 @@
     </div>
 
     <script type="text/javascript">
+        console.log('Halo!')
 
         let url = `ws://${window.location.host}/ws/socket-server/web`
+
 
         const chatSocket = new WebSocket(url);
 
         chatSocket.onmessage = function(e){
-            //let data = JSON.parse(e.data)
-            console.log('Data:', e)
+            let data = JSON.parse(e.data)
+            console.log('Data:', data)
         }
 
         let form = document.getElementById('form');
@@ -64,3 +66,4 @@
     </script>
 
 {% endblock content %}
+
