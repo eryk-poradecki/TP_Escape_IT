@@ -28,7 +28,6 @@ RUN python -m venv /py && \
 
 # Set the environment variables
 ENV PATH="/py/bin:/root/google-cloud-sdk/bin:$PATH"
-ENV SECRET_KEY="django-insecure-s*h2cqr@c9!y-@)p2o(nimhn&-w4s^9&699!_$()h)sa9rd0#3"
 ENV GOOGLE_APPLICATION_CREDENTIALS="/service-account-key.json"
 
 # Set the user

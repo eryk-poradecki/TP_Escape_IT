@@ -11,14 +11,15 @@
     <div class="rooms-layout">
         {% for room in rooms %}
         {% comment %} warunek ifa do zmiany - trzeba to połączyć z aktywnymi grami {% endcomment %}
-        <div class="room {% if room.current_game %}active-room{% else  %}inactive-room{% endif %}">
+        <div class="room {% if room.current_game %}active-room{% elif room.notification %}notification-room{% else  %}inactive-room{% endif %}">
+
             {% if room.room.image %}
                 <img src="{{ room.room.image.url }}" class="photo" alt="room image">
             {% else %}
                 <img src="{% static 'img/placeholder.png' %}" class="photo" alt="room image">
             {% endif %}
             <div class="room-text">
-                <p class="room-number">{{room.room.room_name}}</p>
+                <h2 class="room-number">{{room.room.room_name}}</h2>
                     {% if room.current_game %}
                         <p>starting time : {{room.current_game.0.start_date_time.time}}</p>
                         {% else %}
@@ -31,7 +32,7 @@
                         <p>progress : 0%</p>
                     {% endif %}
 
-                <a class="{% if room.current_game %}room-panel-button{% else  %}room-panel-button-inactive{% endif %}" href="/rooms/{{ room.room.id }}">
+                <a class="{% if room.current_game %}room-panel-button{% elif room.notification %}room-panel-button-notification{% else  %}room-panel-button-inactive{% endif %}" href="/rooms/{{ room.room.id }}">
                     <p>room panel</p>
                 </a>
             </div>
@@ -40,7 +41,6 @@
     </div>
 
     <script type="text/javascript">
-        console.log('Halo!')
 
         let url = `ws://${window.location.host}/ws/socket-server/web`
 
@@ -53,7 +53,7 @@
         }
 
         let form = document.getElementById('form');
-        form.addEventListener('submit', (e)=> {
+        form.addEventListener('submit', (e) => {
             e.preventDefault()
             let hint = e.target.hint.value;
 

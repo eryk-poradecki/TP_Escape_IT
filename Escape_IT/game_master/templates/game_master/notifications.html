@@ -5,34 +5,57 @@
  {% block content %}
  <head>
         <link rel="stylesheet" href="../../static/css/notifications-style.css"/>
+        <script src="../../static/scripts/notifications_script.js"></script>
 </head>
 
 <body>
         <div class="notifications-view">
 
                 {% comment %} <div class="header">
-                    <h1>notifications</h1>
+                        <h1>notifications</h1>
                 </div> {% endcomment %}
 
                 <div class="header">
                         <h1>notifications</h1>
                         <img src="{% static 'img/bell.svg' %}" alt="Return" class="bell"/>
                 </div>
-        
+
                 <div class="notifications">
                         <h1>newest notifications</h1>
-                        <div class="notifications-layout">
-                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
-                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
-                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
-                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
-                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
-                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
-                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
-                                <p class="notification">pokoj X  needs a hint!    data + czas</p>
+                        <div id="notifications-container" class="notifications-layout">
+                                {% for notification in notifications %}
+
+                                        {% if notification.type == "progress" %}
+                                                <div class="notification notification-progress {% if notification.resolved %}notification-resolved{% else %}notification-unresolved{% endif %}" id="notification{{ forloop.counter }}">
+                                                        <p>{{ notification.message }} Click here, to see room details!</p>
+                                                        <p class="date">{{ notification.date_time }}</p>
+                                                </div>
+
+                                        {% else %}
+                                                <div class="notification {% if notification.resolved %}notification-resolved{% else %}notification-unresolved{% endif %}" id="notification{{ forloop.counter }}">
+                                                        <p>{{ notification.message }}. Click here, to send help!</p>
+                                                        <p  class="date">{{ notification.date_time }}</p>
+                                                </div>
+
+                                        {% endif %}
+
+                                        <script>
+                                                var notificationDiv{{ forloop.counter }} = document.getElementById("notification{{ forloop.counter }}");
+                                                notificationDiv{{ forloop.counter }}.addEventListener("click", function() {
+                                                        location.href = "/rooms/{{ notification.room_id }}";
+                                                        
+                                                        fetch("{% url 'resolve_notification' notification.id %}",
+                                                        {
+                                                                method: "POST",                        
+                                                        });
+                                                });
+                                        </script>
+
+                                {% endfor %}
+                        </div>
+                
                 </div>
-        
-         </div>
+        </div>
 </body>
 
 {% endblock content %}
