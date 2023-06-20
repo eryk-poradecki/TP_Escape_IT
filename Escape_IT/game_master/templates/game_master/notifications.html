@@ -24,10 +24,21 @@
                         <h1>newest notifications</h1>
                         <div id="notifications-container" class="notifications-layout">
                                 {% for notification in notifications %}
-                                        <div class="notification">
+                                        <div class="notification {% if notification.resolved %}notification_resolved{% else %}notification_not_resolved{% endif %}" id="notification{{ forloop.counter }}">
                                                 <p>{{ notification.message }}. Click here, to send help!</p>
                                                 <p>{{ notification.date_time }}</p>
                                         </div>
+                                        <script>
+                                                var notificationDiv{{ forloop.counter }} = document.getElementById("notification{{ forloop.counter }}");
+                                                notificationDiv{{ forloop.counter }}.addEventListener("click", function() {
+                                                        location.href = "http://127.0.01:8000/rooms/{{ notification.room_id }}";
+                                                        fetch("/resolve_notification/{{ notification.id }}/", 
+                                                        {
+                                                                method: "POST",                        
+                                                        });
+                                                });
+                                        </script>
+
                                 {% endfor %}
                         </div>
                 

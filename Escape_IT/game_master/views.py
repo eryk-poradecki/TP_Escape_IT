@@ -1,6 +1,7 @@
 import os
 
-from django.http import FileResponse, Http404, HttpResponse
+from django.http import FileResponse, Http404, HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Room, Game, Notification
 from .forms import CreateGameForm
@@ -19,7 +20,7 @@ def home(request):
         rooms_decorated.append({
             'room': room,
             'current_game': Game.objects.filter(room=room).filter(start_date_time__lte=datetime.now()).filter(end_date_time__gte=datetime.now()),
-            'notification': Notification.objects.filter(room=room),
+            'notification': Notification.objects.filter(room=room).filter(resolved=False),
         })
 
     context = {
@@ -59,6 +60,7 @@ def room_panel(request, room_id):
     current_time = timezone.now()
     played_games = Game.objects.filter(room=room_id).filter(start_date_time__lte=datetime.now()).filter(end_date_time__lte=datetime.now())
     upcoming_games = Game.objects.filter(room=room_id).filter(start_date_time__gte=datetime.now()).filter(end_date_time__gte=datetime.now())
+    notifications = Notification.objects.filter(room=room_id).filter(resolved=False).order_by('-date_time')[:10]
 
     if request.method == 'POST':
         form = CreateGameForm(request.POST)
@@ -83,6 +85,7 @@ def room_panel(request, room_id):
         'upcoming_games': upcoming_games,
         'form': form,
         'title': f'Escape IT Room {room_id}',
+        'notifications': notifications,
     }
     return render(request, 'game_master/room-panel-view.html', context)
 
@@ -115,3 +118,10 @@ def return_hint_audio(request):
             return HttpResponse(audio_file, content_type='audio/mpeg')
     else:
         raise Http404('Audio file not found.')
+
+
+def resolve_notification(request, id):
+    print("Resolving notification" + id)
+    notification = Notification.objects.get(id=id)
+    notification.resolved = True
+    notification.save()

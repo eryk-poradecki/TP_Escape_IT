@@ -89,6 +89,7 @@ class UnityConsumer(WebsocketConsumer):
                 message=notification_message,
                 date_time=timezone.now().__add__(timezone.timedelta(hours=2)),
                 room=Room.objects.filter(id=self.room_id).first(),
+                resolved=False
             )
 
             async_to_sync(self.channel_layer.group_send)(
@@ -106,6 +107,7 @@ class UnityConsumer(WebsocketConsumer):
                 message=notification_message,
                 date_time=timezone.now().__add__(timezone.timedelta(hours=2)),
                 room=Room.objects.filter(id=self.room_id).first(),
+                resolved=False
             )
 
             async_to_sync(self.channel_layer.group_send)(
@@ -132,6 +134,7 @@ class UnityConsumer(WebsocketConsumer):
                     message=notification_message,
                     date_time=current_date_time,
                     room=Room.objects.filter(id=self.room_id).first(),
+                    resolved=True
                 )
                 async_to_sync(self.channel_layer.group_send)(
                     'web',

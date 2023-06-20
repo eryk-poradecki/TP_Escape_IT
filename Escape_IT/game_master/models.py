@@ -21,3 +21,4 @@ class Notification(models.Model):
     message = models.CharField(max_length=300)
     date_time = models.DateTimeField()
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    resolved = models.BooleanField(default=False)

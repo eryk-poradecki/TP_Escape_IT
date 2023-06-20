@@ -60,12 +60,19 @@
     border: none;
     justify-self: left;
     display: flexbox;
-    background-color: #e0e0e0c0;
     padding: 2%;
     width: 90%;
     margin: 1%;
     max-height: 3vh;
     right: 0;
+}
+
+.notification_resolved{
+    background-color: greenyellow;
+}
+
+.notification_not_resolved{
+    background-color: red;
 }
 
 .notification:hover{
