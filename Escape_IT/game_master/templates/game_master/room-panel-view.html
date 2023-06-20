@@ -5,6 +5,7 @@
     {% csrf_token %}
     <head>
         <link rel="stylesheet" href=" {% static 'css/room-panel-style.css' %}"/>
+        <script src="{% static 'scripts/hint_event.js' %}"></script>
     </head>
 
     {% if games.count > 0 %}
@@ -132,7 +133,6 @@
         
     {% endif %}
 
-    
 
         
     </div>
