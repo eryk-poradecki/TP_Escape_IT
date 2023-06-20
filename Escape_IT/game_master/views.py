@@ -34,11 +34,19 @@ def home(request):
 
 
 def notifications(request):
+    rooms = Room.objects.all()
+    rooms_decorated = []
+    for room in rooms:
+        rooms_decorated.append({
+            'room': room,
+        })
+
     context = {
-        'rooms': Room.objects.all(),
+        'rooms': rooms_decorated,
         'active_page': 'notifications',
         'title': 'Escape IT Notifications',
         'notifications': Notification.objects.all().order_by('-date_time')[:10],
+        'current_game': Game.objects.filter(room=room).filter(start_date_time__lte=datetime.now()).filter(end_date_time__gte=datetime.now()),
     }
     return render(request, 'game_master/notifications.html', context)
 

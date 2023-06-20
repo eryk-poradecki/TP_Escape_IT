@@ -76,9 +76,9 @@
 
             <div class="game-control">
                 <h1>game control</h1>
-                <p class="game-control-manual">Here you can start and end games. After filling out the form below, click the "ADD GAME"
-                    button to start a new game or add it to the list of upcoming games. If there is already 
-                    a game in progress, you can end it by clicking the "END GAME" button.
+                <p class="game-control-manual">Here you can start games. After filling out the form below, click the "ADD GAME"
+                    button to start a new game or add it to the list of upcoming games. The game will end automatically after the
+                    specified time.
                 </p>
                 {% if not games or games.0.active == 0 %}
                     <form class="add-game-form" method="POST" action="">
@@ -88,7 +88,7 @@
                 {% endif %}
                 <div class="buttons">
                     {% comment %} <button class="start-game-button">Start game</button> {% endcomment %}
-                    <button class="end-game-button {% if not games.0.active == 0 %} end-game-button-inactive {% endif %}">End game</button>
+                    {% comment %} <button class="end-game-button {% if not games.0.active == 0 %} end-game-button-inactive {% endif %}">End game</button> {% endcomment %}
                 </div>
             </div>
             

@@ -1,7 +1,8 @@
 .notifications-view{
-    margin-top: 12%;
-    margin-left: 10%;
-    width: 130vh;
+    margin-top: 16vh;
+    margin-left: 1vw;
+    width: 75vw;
+    padding-bottom: 10%;
 }
 
 .header{
@@ -59,26 +60,47 @@
     border-radius: 15px;
     border: none;
     justify-self: left;
-    display: flexbox;
-    padding: 2%;
+    display: table;
     width: 90%;
-    margin: 1%;
-    max-height: 3vh;
-    right: 0;
+    max-height: 5vh;
+    margin-bottom: 2vh;
+    margin-left: 1vw;
 }
 
-.notification_resolved{
-    background-color: greenyellow;
+.notification p{
+    margin-left: 2%;
 }
 
-.notification_not_resolved{
-    background-color: red;
+.date{
+    font-size: 80%;
+    font-weight: 500;
+    margin-top: -1%;
 }
 
 .notification:hover{
     background-color: rgb(157, 157, 157);
 }
 
+.notification.notification-progress{
+    background-color: #b6cebde3;
+}
+
+.notification-progress:hover{
+    background-color: #6db095;
+}
+
+.notification-unresolved{
+    background-color: #e85324cc;
+}
+
+.notification-unresolved:hover{
+    background-color: #de4618f7;
+}
+
+
+.notification-resolved{
+    background-color: #e0e0e0c0;
+}
 
 
 

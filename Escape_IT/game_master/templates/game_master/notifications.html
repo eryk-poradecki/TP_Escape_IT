@@ -24,10 +24,21 @@
                         <h1>newest notifications</h1>
                         <div id="notifications-container" class="notifications-layout">
                                 {% for notification in notifications %}
-                                        <div class="notification {% if notification.resolved %}notification_resolved{% else %}notification_not_resolved{% endif %}" id="notification{{ forloop.counter }}">
-                                                <p>{{ notification.message }}. Click here, to send help!</p>
-                                                <p>{{ notification.date_time }}</p>
-                                        </div>
+
+                                        {% if notification.type == "progress" %}
+                                                <div class="notification notification-progress {% if notification.resolved %}notification-resolved{% else %}notification-unresolved{% endif %}" id="notification{{ forloop.counter }}">
+                                                        <p>{{ notification.message }} Click here, to see room details!</p>
+                                                        <p class="date">{{ notification.date_time }}</p>
+                                                </div>
+
+                                        {% else %}
+                                                <div class="notification {% if notification.resolved %}notification-resolved{% else %}notification-unresolved{% endif %}" id="notification{{ forloop.counter }}">
+                                                        <p>{{ notification.message }}. Click here, to send help!</p>
+                                                        <p  class="date">{{ notification.date_time }}</p>
+                                                </div>
+
+                                        {% endif %}
+
                                         <script>
                                                 var notificationDiv{{ forloop.counter }} = document.getElementById("notification{{ forloop.counter }}");
                                                 notificationDiv{{ forloop.counter }}.addEventListener("click", function() {

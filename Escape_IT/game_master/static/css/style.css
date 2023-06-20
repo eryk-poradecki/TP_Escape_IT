@@ -14,28 +14,25 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 18%;
-  margin-right: 4%;
-  width: auto;
+  margin-left: 20vw;
+  margin-right: 2vw;
 }
 
 .active-games {
-  margin-top: 140px;
-  width: auto;
-  min-width: 136vh;
+  margin-top: 17vh;
+  width: 77vw;
   height: 6vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #2f2f2f;
   border-radius: 15px;
-  margin-left: 5%;
   margin-bottom: 4vh;
 }
 
 .active-games p{
   color: white;
-  font-size: 28px;
+  font-size: 3.7vh;
   font-weight: 700;
   text-transform: uppercase;
   padding: 20px;
@@ -46,11 +43,10 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  grid-column-gap: 4%;
-  row-gap: 10%; 
+  grid-column-gap: 3vw;
+  row-gap: 5vh; 
   place-items: center;
-  width: 90%;
-  margin-right: 5%;
+  /* margin-left: 4vw; */
 }
 
 .room{
@@ -59,7 +55,7 @@ body {
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.25);
   border-radius: 25px;
   height: 27vh;
-  width: 65.5vh;
+  width: 37vw;
   place-items: center;
   display: grid;
   justify-content: center;
@@ -76,12 +72,12 @@ body {
 }
 
 .notification-room{
-  background-color: rgba(232, 83, 36, 0.8);
+  background-color: #e85324cc;
 }
 
 .photo{
   border-radius: 18px;
-  width: 34vh;
+  width: 19vw;
   height: 22vh;
   display: flex;
   align-items: center;
@@ -101,7 +97,7 @@ body {
 }
 
 .room-text{
-  font-size: 110%;
+  font-size: 2vh;
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
@@ -128,6 +124,7 @@ body {
   justify-content: center;
   font-weight: 800;
   padding: 0 0 5% 0;
+  font-size: 2.5vh;
 }
 
 .room-panel-button-inactive{
@@ -142,6 +139,7 @@ body {
   justify-content: center;
   font-weight: 800;
   padding: 0 0 5% 0;
+  font-size: 2.5vh;
 }
 
 .room-panel-button-notification{
@@ -156,6 +154,7 @@ body {
   justify-content: center;
   font-weight: 800;
   padding: 0 0 5% 0;
+  font-size: 2.5vh;
 }
 
 .room a{
