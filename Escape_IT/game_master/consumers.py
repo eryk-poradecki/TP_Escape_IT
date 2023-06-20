@@ -89,7 +89,7 @@ class UnityConsumer(WebsocketConsumer):
             Notification.objects.create(
                 type=type,
                 message=notification_message,
-                date_time=timezone.now().__add__(timezone),
+                date_time=timezone.now(),
                 room=Room.objects.filter(id=self.room_id).first(),
                 resolved=False
             )
@@ -113,7 +113,7 @@ class UnityConsumer(WebsocketConsumer):
             Notification.objects.create(
                 type=type,
                 message=notification_message,
-                date_time=timezone.now().__add__(timezone),
+                date_time=timezone.now(),
                 room=Room.objects.filter(id=self.room_id).first(),
                 resolved=False
             )
@@ -129,7 +129,7 @@ class UnityConsumer(WebsocketConsumer):
                 }
             )
         elif type == 'progress':
-            current_date_time = timezone.now().__add__(timezone)
+            current_date_time = timezone.now()
             try:
                 game = Game.objects.filter(
                     room_id=self.room_id,
