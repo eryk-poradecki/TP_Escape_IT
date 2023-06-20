@@ -11,7 +11,7 @@ chatSocket.onmessage = function(e){
     
     console.log(data)
 
-    if (data.type == "help_request" || data.type == "custom_help_request" || data.type == "progress") {
+    if (data.type === "help_request" || data.type === "custom_help_request" || data.type === "progress") {
         let div = document.createElement('div');
         div.setAttribute("class", "notification");
 
