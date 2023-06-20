@@ -13,7 +13,7 @@ chatSocket.onmessage = function(e){
 
     if (data.type === "help_request" || data.type === "custom_help_request" || data.type === "progress") {
         let div = document.createElement('div');
-        div.setAttribute("class", "notification notification_not_resolved");
+        div.setAttribute("class", "notification notification-unresolved");
 
         let p = document.createElement('p');
         p.innerText = data.message + ". Click here to send help!";
