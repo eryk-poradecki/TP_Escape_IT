@@ -51,18 +51,6 @@
             let data = JSON.parse(e.data)
             console.log('Data:', data)
         }
-
-        let form = document.getElementById('form');
-        form.addEventListener('submit', (e) => {
-            e.preventDefault()
-            let hint = e.target.hint.value;
-
-            chatSocket.send(JSON.stringify({
-                'type': 'help_response',
-                'hint': hint
-            }))
-            form.reset()
-        })
     </script>
 
 {% endblock content %}
