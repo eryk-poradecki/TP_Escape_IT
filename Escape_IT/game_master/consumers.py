@@ -105,7 +105,11 @@ class UnityConsumer(WebsocketConsumer):
                 }
             )
         elif type =='custom_help_request':
-            notification_message = f"Room {self.room_id} " + text_data_json['message']
+            message = text_data_json['message']
+            last_char = message[-1]
+            if last_char != '.' and last_char != '?':
+                message += '?'
+            notification_message = f"Room {self.room_id} " + message
             Notification.objects.create(
                 type=type,
                 message=notification_message,
@@ -134,7 +138,7 @@ class UnityConsumer(WebsocketConsumer):
                 ).latest('start_date_time')
                 game.progress += 25
                 game.save()
-                notification_message = f'Players in Room {self.room_id} made progress. Current progress: {game.progress}%'
+                notification_message = f'Players in Room {self.room_id} made progress. Current progress: {game.progress}%.'
                 Notification.objects.create(
                     type=type,
                     message=notification_message,
