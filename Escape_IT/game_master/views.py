@@ -69,6 +69,7 @@ def room_panel(request, room_id):
     played_games = Game.objects.filter(room=room_id).filter(start_date_time__lte=datetime.now()).filter(end_date_time__lte=datetime.now())
     upcoming_games = Game.objects.filter(room=room_id).filter(start_date_time__gte=datetime.now()).filter(end_date_time__gte=datetime.now())
     notifications = Notification.objects.filter(room=room_id).filter(resolved=False).order_by('-date_time')[:10]
+    custom_hint = Notification.objects.filter(room=room_id).filter(resolved=False).filter(type='custom_help_request').first()
 
     if request.method == 'POST':
         form = CreateGameForm(request.POST)
@@ -94,6 +95,7 @@ def room_panel(request, room_id):
         'form': form,
         'title': f'Escape IT Room {room_id}',
         'notifications': notifications,
+        'custom_hint': custom_hint,
     }
     return render(request, 'game_master/room-panel-view.html', context)
 
