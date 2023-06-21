@@ -5,13 +5,13 @@
 {% block content %}
     <div class="active-games">
         <p>number of Active Games: {{ active_games_count }}</p>
-        <p>games that require your attention : {{ rooms_need_help }}</p>
+        <p id="rooms-need-help" value={{ rooms_need_help }}>games that require your attention : {{ rooms_need_help }}</p>
     </div>
 
     <div class="rooms-layout">
         {% for room in rooms %}
         {% comment %} warunek ifa do zmiany - trzeba to połączyć z aktywnymi grami {% endcomment %}
-        <div class="room {% if room.notification %}notification-room{% elif room.current_game %}active-room{% else  %}inactive-room{% endif %}">
+        <div class="room {% if room.notification %}notification-room{% elif room.current_game %}active-room{% else  %}inactive-room{% endif %}" id="room{{ room.room.id }}">
 
             {% if room.room.image %}
                 <img src="{{ room.room.image.url }}" class="photo" alt="room image">
@@ -27,7 +27,7 @@
                     {% endif %}
 
                     {% if room.current_game %}
-                        <p>progress: {{room.current_game.0.progress}}%</p>
+                        <p id="progress{{ room.room.id }}" value={{room.current_game.0.progress}}>progress: {{room.current_game.0.progress}}%</p>
                         {% else %}
                         <p>progress : 0%</p>
                     {% endif %}
@@ -43,13 +43,31 @@
     <script type="text/javascript">
 
         let url = `ws://${window.location.host}/ws/socket-server/web`
-
-
+        
         const chatSocket = new WebSocket(url);
 
         chatSocket.onmessage = function(e){
             let data = JSON.parse(e.data)
             console.log('Data:', data)
+
+            let room = document.getElementById('room' + data.room_id)
+
+            if (data.type === 'help_request' || data.type === 'custom_help_request') {
+                if (room.getAttribute('class') !== 'room notifcation-room')
+                room.setAttribute('class', 'room notification-room')
+                let rooms_need_help = document.getElementById('rooms-need-help')
+                let value = parseInt(rooms_need_help.getAttribute('value'));
+                value += 1
+                rooms_need_help.setAttribute('value', value)
+                rooms_need_help.innerText = 'games that require your attention : ' + value
+            }
+            else if (data.type === 'progress') {
+                let progress = document.getElementById('progress' + data.room_id)
+                let value = parseInt(progress.getAttribute('value'));
+                value += 25
+                progress.setAttribute('value', value)
+                progress.innerText = 'progress: ' + value + '%'
+            }
         }
     </script>
 

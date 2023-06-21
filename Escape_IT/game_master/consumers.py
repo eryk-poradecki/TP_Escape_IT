@@ -151,6 +151,8 @@ class UnityConsumer(WebsocketConsumer):
                     {
                         'type': 'event_handler',
                         'event_type': type,
+                        'room_id': self.room_id,
+                        'notification_id': Notification.objects.latest('date_time').id,
                         'message': notification_message
                     }
                 )
