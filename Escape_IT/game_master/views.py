@@ -23,11 +23,14 @@ def home(request):
             'notification': Notification.objects.filter(room=room).filter(resolved=False),
         })
 
+    rooms_need_help = len([room for room in rooms_decorated if room['notification']])
+
     context = {
         'rooms': rooms_decorated,
         'games': Game.objects.all(),
         'active_page': 'home',
         'active_games_count': Game.objects.all().filter(active=True).count(),
+        'rooms_need_help': rooms_need_help,
         'title': 'Escape IT Home'
     }
     return render(request, 'game_master/home.html', context)
@@ -135,3 +138,13 @@ def resolve_notification(request, id):
     notification.resolved = True
     notification.save()
     return HttpResponse("Notification resolved")
+
+@csrf_exempt
+def resolve_notification_last(request, room_id):
+    notification = Notification.objects.filter(room=room_id).filter(resolved=False).order_by('-date_time').first()
+    if notification is not None:
+        notification.resolved = True
+        notification.save()
+        return HttpResponse("Notification resolved")
+    else:
+        return HttpResponse("All notifications already resolved")

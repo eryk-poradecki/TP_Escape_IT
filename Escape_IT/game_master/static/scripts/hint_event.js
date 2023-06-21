@@ -19,5 +19,11 @@ function init() {
     };
 
     socket.send(JSON.stringify(message));
+
+    let roomInfo = document.getElementById("room-information").getAttribute("room_id")
+
+    fetch(`/notifications/resolve_notification_last/${roomInfo}/`, {
+        method: "POST",
+    });
 });
 }

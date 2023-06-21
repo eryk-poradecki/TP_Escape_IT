@@ -109,7 +109,7 @@ class UnityConsumer(WebsocketConsumer):
             last_char = message[-1]
             if last_char != '.' and last_char != '?':
                 message += '?'
-            notification_message = f"Room {self.room_id} " + message
+            notification_message = f"Room {self.room_id}: " + message
             Notification.objects.create(
                 type=type,
                 message=notification_message,
