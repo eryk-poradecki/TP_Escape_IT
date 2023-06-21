@@ -33,7 +33,7 @@ chatSocket.onmessage = function(e){
         div.appendChild(p);
         div.appendChild(pDate);
 
-        notificationContainer.appendChild(div);
+        notificationContainer.prepend(div);
     }
     
 }
