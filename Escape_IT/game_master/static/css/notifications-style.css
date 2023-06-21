@@ -85,7 +85,7 @@
     background-color: #b6cebde3;
 }
 
-.notification-progress:hover{
+.notification.notification-progress:hover{
     background-color: #6db095;
 }
 

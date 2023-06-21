@@ -89,7 +89,7 @@ class UnityConsumer(WebsocketConsumer):
             Notification.objects.create(
                 type=type,
                 message=notification_message,
-                date_time=timezone.now().__add__(timezone.timedelta(hours=2)),
+                date_time=timezone.now(),
                 room=Room.objects.filter(id=self.room_id).first(),
                 resolved=False
             )
@@ -105,11 +105,15 @@ class UnityConsumer(WebsocketConsumer):
                 }
             )
         elif type =='custom_help_request':
-            notification_message = f"Room {self.room_id} " + text_data_json['message']
+            message = text_data_json['message']
+            last_char = message[-1]
+            if last_char != '.' and last_char != '?':
+                message += '?'
+            notification_message = f"Room {self.room_id}: " + message
             Notification.objects.create(
                 type=type,
                 message=notification_message,
-                date_time=timezone.now().__add__(timezone.timedelta(hours=2)),
+                date_time=timezone.now(),
                 room=Room.objects.filter(id=self.room_id).first(),
                 resolved=False
             )
@@ -125,7 +129,7 @@ class UnityConsumer(WebsocketConsumer):
                 }
             )
         elif type == 'progress':
-            current_date_time = timezone.now().__add__(timezone.timedelta(hours=2))
+            current_date_time = timezone.now()
             try:
                 game = Game.objects.filter(
                     room_id=self.room_id,
@@ -134,7 +138,7 @@ class UnityConsumer(WebsocketConsumer):
                 ).latest('start_date_time')
                 game.progress += 25
                 game.save()
-                notification_message = f'Players in Room {self.room_id} made progress. Current progress: {game.progress}%'
+                notification_message = f'Players in Room {self.room_id} made progress. Current progress: {game.progress}%.'
                 Notification.objects.create(
                     type=type,
                     message=notification_message,
@@ -147,6 +151,8 @@ class UnityConsumer(WebsocketConsumer):
                     {
                         'type': 'event_handler',
                         'event_type': type,
+                        'room_id': self.room_id,
+                        'notification_id': Notification.objects.latest('date_time').id,
                         'message': notification_message
                     }
                 )

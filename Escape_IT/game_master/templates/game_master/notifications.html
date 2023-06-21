@@ -33,7 +33,7 @@
 
                                         {% else %}
                                                 <div class="notification {% if notification.resolved %}notification-resolved{% else %}notification-unresolved{% endif %}" id="notification{{ forloop.counter }}">
-                                                        <p>{{ notification.message }}. Click here, to send help!</p>
+                                                        <p>{{ notification.message }} Click here, to send help!</p>
                                                         <p  class="date">{{ notification.date_time }}</p>
                                                 </div>
 

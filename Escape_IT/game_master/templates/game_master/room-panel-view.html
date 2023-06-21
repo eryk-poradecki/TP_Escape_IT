@@ -20,8 +20,8 @@
         </div>
 
         <div class="panel">
-            <div class="room-information">
-                <div class="information-text">
+            <div class="room-information" id="room-information" room_id={{ room.id }}>
+                <div class="information-text">W
                     <p>Room description</p>
                     <p class="details">{{ room.room_description }}</p>
                     <p>Starting time </p>
@@ -57,6 +57,7 @@
                 <div>
                     <h1>HINT DELIVERY</h1>
                     <p>Please enter the hint content in the textbox below. Once you're done, simply click the "ADD HINT" button, and it will be promptly delivered to the group who needs it.</p>
+                    <br><p class="hint-message {% if custom_hint %}visible{% endif %}">Message from group : {{ custom_hint.message }}</p></br>
             </div>
 
             <form id="tts-form">

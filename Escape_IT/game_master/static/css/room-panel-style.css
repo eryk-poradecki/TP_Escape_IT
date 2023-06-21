@@ -292,3 +292,10 @@ button:active{
     margin-left: 2%;
 }
 
+.hint-message{
+    display: none;
+}
+
+.visible{
+    display: flex;
+}

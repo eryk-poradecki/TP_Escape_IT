@@ -23,11 +23,14 @@ def home(request):
             'notification': Notification.objects.filter(room=room).filter(resolved=False),
         })
 
+    rooms_need_help = len([room for room in rooms_decorated if room['notification']])
+
     context = {
         'rooms': rooms_decorated,
         'games': Game.objects.all(),
         'active_page': 'home',
         'active_games_count': Game.objects.all().filter(active=True).count(),
+        'rooms_need_help': rooms_need_help,
         'title': 'Escape IT Home'
     }
     return render(request, 'game_master/home.html', context)
@@ -69,6 +72,7 @@ def room_panel(request, room_id):
     played_games = Game.objects.filter(room=room_id).filter(start_date_time__lte=datetime.now()).filter(end_date_time__lte=datetime.now())
     upcoming_games = Game.objects.filter(room=room_id).filter(start_date_time__gte=datetime.now()).filter(end_date_time__gte=datetime.now())
     notifications = Notification.objects.filter(room=room_id).filter(resolved=False).order_by('-date_time')[:10]
+    custom_hint = Notification.objects.filter(room=room_id).filter(resolved=False).filter(type='custom_help_request').first()
 
     if request.method == 'POST':
         form = CreateGameForm(request.POST)
@@ -94,6 +98,7 @@ def room_panel(request, room_id):
         'form': form,
         'title': f'Escape IT Room {room_id}',
         'notifications': notifications,
+        'custom_hint': custom_hint,
     }
     return render(request, 'game_master/room-panel-view.html', context)
 
@@ -133,3 +138,13 @@ def resolve_notification(request, id):
     notification.resolved = True
     notification.save()
     return HttpResponse("Notification resolved")
+
+@csrf_exempt
+def resolve_notification_last(request, room_id):
+    notification = Notification.objects.filter(room=room_id).filter(resolved=False).order_by('-date_time').first()
+    if notification is not None:
+        notification.resolved = True
+        notification.save()
+        return HttpResponse("Notification resolved")
+    else:
+        return HttpResponse("All notifications already resolved")
